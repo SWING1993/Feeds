@@ -8,11 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		89B22A49211AC0EF00F180CF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A48211AC0EF00F180CF /* AppDelegate.m */; };
-		89B22A4C211AC0EF00F180CF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A4B211AC0EF00F180CF /* ViewController.m */; };
 		89B22A51211AC0F000F180CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89B22A50211AC0F000F180CF /* Assets.xcassets */; };
 		89B22A57211AC0F000F180CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A56211AC0F000F180CF /* main.m */; };
 		89B22A64211AC28200F180CF /* CMMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A60211AC28200F180CF /* CMMineViewController.m */; };
-		89B22A65211AC28200F180CF /* CMIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A63211AC28200F180CF /* CMIndexViewController.m */; };
 		89B22A69211AC29B00F180CF /* CMRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A68211AC29B00F180CF /* CMRequest.m */; };
 		89B22A78211AC2A800F180CF /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A6D211AC2A800F180CF /* NSDate+Utilities.m */; };
 		89B22A79211AC2A800F180CF /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A6E211AC2A800F180CF /* NSDate+Extension.m */; };
@@ -25,6 +23,9 @@
 		89B22A8C211AC4D200F180CF /* CMBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A87211AC4D200F180CF /* CMBaseTableViewController.m */; };
 		89B22A8D211AC4D200F180CF /* CMBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A88211AC4D200F180CF /* CMBaseTabBarViewController.m */; };
 		89B22A93211AC68700F180CF /* AppConfigurationTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A92211AC68700F180CF /* AppConfigurationTemplate.m */; };
+		89B22A99211ACAAE00F180CF /* AppFeedsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A98211ACAAE00F180CF /* AppFeedsViewController.m */; };
+		89B22A9C211ACAD200F180CF /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A9B211ACAD200F180CF /* Feed.m */; };
+		89B22A9F211ACAFD00F180CF /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A9E211ACAFD00F180CF /* FeedTableViewCell.m */; };
 		EA717D5C2B31CDD059AB3859 /* libPods-Feeds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC0C6B225F5DE8824DAA797 /* libPods-Feeds.a */; };
 /* End PBXBuildFile section */
 
@@ -33,15 +34,11 @@
 		89B22A44211AC0EF00F180CF /* Feeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feeds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89B22A47211AC0EF00F180CF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		89B22A48211AC0EF00F180CF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		89B22A4A211AC0EF00F180CF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		89B22A4B211AC0EF00F180CF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		89B22A50211AC0F000F180CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89B22A55211AC0F000F180CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89B22A56211AC0F000F180CF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		89B22A5F211AC28200F180CF /* CMMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMineViewController.h; sourceTree = "<group>"; };
 		89B22A60211AC28200F180CF /* CMMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMineViewController.m; sourceTree = "<group>"; };
-		89B22A62211AC28200F180CF /* CMIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMIndexViewController.h; sourceTree = "<group>"; };
-		89B22A63211AC28200F180CF /* CMIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMIndexViewController.m; sourceTree = "<group>"; };
 		89B22A67211AC29B00F180CF /* CMRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMRequest.h; sourceTree = "<group>"; };
 		89B22A68211AC29B00F180CF /* CMRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMRequest.m; sourceTree = "<group>"; };
 		89B22A6C211AC2A800F180CF /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
@@ -67,6 +64,12 @@
 		89B22A90211AC59A00F180CF /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		89B22A91211AC68700F180CF /* AppConfigurationTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfigurationTemplate.h; sourceTree = "<group>"; };
 		89B22A92211AC68700F180CF /* AppConfigurationTemplate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppConfigurationTemplate.m; sourceTree = "<group>"; };
+		89B22A97211ACAAE00F180CF /* AppFeedsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppFeedsViewController.h; sourceTree = "<group>"; };
+		89B22A98211ACAAE00F180CF /* AppFeedsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppFeedsViewController.m; sourceTree = "<group>"; };
+		89B22A9A211ACAD200F180CF /* Feed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Feed.h; sourceTree = "<group>"; };
+		89B22A9B211ACAD200F180CF /* Feed.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
+		89B22A9D211ACAFD00F180CF /* FeedTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCell.h; sourceTree = "<group>"; };
+		89B22A9E211ACAFD00F180CF /* FeedTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewCell.m; sourceTree = "<group>"; };
 		9AC0C6B225F5DE8824DAA797 /* libPods-Feeds.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Feeds.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFBD7CC0A250D54038948652 /* Pods-Feeds.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feeds.release.xcconfig"; path = "Pods/Target Support Files/Pods-Feeds/Pods-Feeds.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,13 +117,11 @@
 			children = (
 				89B22A47211AC0EF00F180CF /* AppDelegate.h */,
 				89B22A48211AC0EF00F180CF /* AppDelegate.m */,
-				89B22A4A211AC0EF00F180CF /* ViewController.h */,
-				89B22A4B211AC0EF00F180CF /* ViewController.m */,
 				89B22A91211AC68700F180CF /* AppConfigurationTemplate.h */,
 				89B22A92211AC68700F180CF /* AppConfigurationTemplate.m */,
+				89B22A5D211AC28200F180CF /* Feature */,
 				89B22A8F211AC52D00F180CF /* Resources */,
 				89B22A7E211AC4D200F180CF /* Base */,
-				89B22A5D211AC28200F180CF /* Feature */,
 				89B22A7D211AC2B000F180CF /* Vendor */,
 				89B22A6A211AC2A800F180CF /* Util */,
 				89B22A66211AC29B00F180CF /* Request */,
@@ -134,8 +135,8 @@
 		89B22A5D211AC28200F180CF /* Feature */ = {
 			isa = PBXGroup;
 			children = (
-				89B22A5E211AC28200F180CF /* Mine */,
 				89B22A61211AC28200F180CF /* Index */,
+				89B22A5E211AC28200F180CF /* Mine */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -152,8 +153,9 @@
 		89B22A61211AC28200F180CF /* Index */ = {
 			isa = PBXGroup;
 			children = (
-				89B22A62211AC28200F180CF /* CMIndexViewController.h */,
-				89B22A63211AC28200F180CF /* CMIndexViewController.m */,
+				89B22A96211ACA7900F180CF /* Controller */,
+				89B22A95211ACA7200F180CF /* View */,
+				89B22A94211ACA6900F180CF /* Model */,
 			);
 			path = Index;
 			sourceTree = "<group>";
@@ -191,12 +193,12 @@
 		89B22A70211AC2A800F180CF /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				89B22A71211AC2A800F180CF /* CMLogManager.m */,
-				89B22A72211AC2A800F180CF /* CMLogManagerViewController.m */,
 				89B22A73211AC2A800F180CF /* CMLogModel.h */,
-				89B22A74211AC2A800F180CF /* CMLogManager.h */,
 				89B22A75211AC2A800F180CF /* CMLogModel.m */,
+				89B22A74211AC2A800F180CF /* CMLogManager.h */,
+				89B22A71211AC2A800F180CF /* CMLogManager.m */,
 				89B22A76211AC2A800F180CF /* CMLogManagerViewController.h */,
+				89B22A72211AC2A800F180CF /* CMLogManagerViewController.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -238,6 +240,33 @@
 				89B22A90211AC59A00F180CF /* PrefixHeader.pch */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		89B22A94211ACA6900F180CF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				89B22A9A211ACAD200F180CF /* Feed.h */,
+				89B22A9B211ACAD200F180CF /* Feed.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		89B22A95211ACA7200F180CF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				89B22A9D211ACAFD00F180CF /* FeedTableViewCell.h */,
+				89B22A9E211ACAFD00F180CF /* FeedTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		89B22A96211ACA7900F180CF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				89B22A97211ACAAE00F180CF /* AppFeedsViewController.h */,
+				89B22A98211ACAAE00F180CF /* AppFeedsViewController.m */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		8B71172079C210A7AD139CFA /* Pods */ = {
@@ -360,22 +389,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89B22A4C211AC0EF00F180CF /* ViewController.m in Sources */,
 				89B22A8C211AC4D200F180CF /* CMBaseTableViewController.m in Sources */,
 				89B22A7C211AC2A800F180CF /* CMLogModel.m in Sources */,
 				89B22A7B211AC2A800F180CF /* CMLogManagerViewController.m in Sources */,
+				89B22A9C211ACAD200F180CF /* Feed.m in Sources */,
 				89B22A64211AC28200F180CF /* CMMineViewController.m in Sources */,
 				89B22A8B211AC4D200F180CF /* CMBaseNavigationController.m in Sources */,
 				89B22A57211AC0F000F180CF /* main.m in Sources */,
 				89B22A49211AC0EF00F180CF /* AppDelegate.m in Sources */,
 				89B22A79211AC2A800F180CF /* NSDate+Extension.m in Sources */,
-				89B22A65211AC28200F180CF /* CMIndexViewController.m in Sources */,
 				89B22A8A211AC4D200F180CF /* CMBaseRequest.m in Sources */,
 				89B22A69211AC29B00F180CF /* CMRequest.m in Sources */,
 				89B22A7A211AC2A800F180CF /* CMLogManager.m in Sources */,
+				89B22A99211ACAAE00F180CF /* AppFeedsViewController.m in Sources */,
 				89B22A8D211AC4D200F180CF /* CMBaseTabBarViewController.m in Sources */,
 				89B22A78211AC2A800F180CF /* NSDate+Utilities.m in Sources */,
 				89B22A93211AC68700F180CF /* AppConfigurationTemplate.m in Sources */,
+				89B22A9F211ACAFD00F180CF /* FeedTableViewCell.m in Sources */,
 				89B22A89211AC4D200F180CF /* CMBaseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

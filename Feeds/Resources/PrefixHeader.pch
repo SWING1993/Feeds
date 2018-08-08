@@ -19,7 +19,7 @@
 // NSLog
 #define NSLog(...)
 //app域名
-#define kBaseUrl             @"http://www.swing1993.xyz"
+#define kBaseUrl             @"http://www.swing1993.cn:8080"
 #define kShouldPrint         NO
 
 #endif

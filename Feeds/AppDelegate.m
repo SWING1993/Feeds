@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "CMIndexViewController.h"
+#import "AppFeedsViewController.h"
 #import "CMMineViewController.h"
 #import "CMLogManager.h"
 #import "CMLogManagerViewController.h"
@@ -43,8 +43,8 @@
     CMBaseTabBarViewController *tabBarViewController = [[CMBaseTabBarViewController alloc] init];
     
     // index
-    CMBaseNavigationController *indexNavController = ({
-        CMIndexViewController *viewController = [[CMIndexViewController alloc] init];
+    CMBaseNavigationController *feedNavController = ({
+        AppFeedsViewController *viewController = [[AppFeedsViewController alloc] init];
         viewController.hidesBottomBarWhenPushed = NO;
         CMBaseNavigationController *navController = [[CMBaseNavigationController alloc] initWithRootViewController:viewController];
         UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Index" image:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] tag:0];
@@ -77,9 +77,9 @@
             navController.tabBarItem = tabBarItem;
             navController;
         });
-        tabBarViewController.viewControllers = @[indexNavController,mineNavController,logNavController];
+        tabBarViewController.viewControllers = @[feedNavController,mineNavController,logNavController];
     } else {
-        tabBarViewController.viewControllers = @[indexNavController,mineNavController];
+        tabBarViewController.viewControllers = @[feedNavController,mineNavController];
     }
     
     // window root controller
