@@ -25,7 +25,6 @@
     [super initSubviews];
     [self setTitle:@"我的"];
     
-    DLog(@"1234");
     
     self.gridView = [[QMUIGridView alloc] init];
     self.gridView.columnCount = 3;

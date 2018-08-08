@@ -24,9 +24,7 @@
     CMBaseRequest *request = [[CMBaseRequest alloc] initWithRequestUrl:@"/feed/add" requestMethod:YTKRequestMethodPOST requestArgument:argument];
 
     [request startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
-        DLog(@"response:%@",request.responseString);
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
-        DLog(@"error:%@",request.error.description);
     }];
     
     QMUILog(@"域名",@"baseurl:%@",kBaseUrl);

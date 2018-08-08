@@ -12,6 +12,11 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+// Present viewController
++ (void)presentVC:(UIViewController *)viewController;
+// Push viewController
++ (void)pushVC:(UIViewController *)viewController;
++ (UIViewController *)presentingVC;
 
 @end
 

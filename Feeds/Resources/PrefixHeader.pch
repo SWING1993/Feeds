@@ -1,0 +1,53 @@
+//
+//  PrefixHeader.pch
+//  Feeds
+//
+//  Created by 宋国华 on 2018/8/8.
+//  Copyright © 2018年 swing. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+#if DEBUG
+// NSLog
+#define NSLog(format, ...) printf("TIME:%s FILE:%s(%d行) FUNCTION:%s \n %s\n\n",__TIME__, [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, __PRETTY_FUNCTION__, [[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String])
+//app域名
+#define kBaseUrl             @"http://localhost:8080"
+#define kShouldPrint         YES
+
+#else
+// NSLog
+#define NSLog(...)
+//app域名
+#define kBaseUrl             @"http://www.swing1993.xyz"
+#define kShouldPrint         NO
+
+#endif
+
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import <QMUIKit/QMUIKit.h>
+#import <YTKNetwork/YTKNetwork.h>
+#import <YTKKeyValueStore/YTKKeyValueStore.h>
+#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
+#import <ReactiveObjC/ReactiveObjC.h>
+#import <TPKeyboardAvoiding/TPKeyboardAvoidingTableView.h>
+#import <TPKeyboardAvoiding/TPKeyboardAvoidingScrollView.h>
+#import <TPKeyboardAvoiding/TPKeyboardAvoidingCollectionView.h>
+#import <TPKeyboardAvoiding/UIScrollView+TPKeyboardAvoidingAdditions.h>
+#import <MJExtension/MJExtension.h>
+#import <MJRefresh/MJRefresh.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <Masonry/Masonry.h>
+
+#import "NSDate+Extension.h"
+
+#import "AppConfigurationTemplate.h"
+#import "CMBaseTabBarViewController.h"
+#import "CMBaseViewController.h"
+#import "CMBaseTableViewController.h"
+#import "CMBaseNavigationController.h"
+#endif /* PrefixHeader_pch */
