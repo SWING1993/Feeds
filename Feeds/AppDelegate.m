@@ -9,8 +9,6 @@
 #import "AppDelegate.h"
 #import "AppFeedsViewController.h"
 #import "CMMineViewController.h"
-#import "CMLogManager.h"
-#import "CMLogManagerViewController.h"
 #import <AFNetworking/AFNetworking.h>
 
 @interface AppDelegate ()
@@ -26,9 +24,6 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    // 开启日志收集
-    [[CMLogManager sharedInstance] setup];
-    
     [self configNetworkSetting];
     
     // app配置表
@@ -40,7 +35,7 @@
 }
 
 - (void)createTabBarController {
-    CMBaseTabBarViewController *tabBarViewController = [[CMBaseTabBarViewController alloc] init];
+//    CMBaseTabBarViewController *tabBarViewController = [[CMBaseTabBarViewController alloc] init];
     
     // index
     CMBaseNavigationController *feedNavController = ({
@@ -53,6 +48,7 @@
         navController;
     });
     
+    /*
     // mine
     CMBaseNavigationController *mineNavController = ({
         CMMineViewController *viewController = [[CMMineViewController alloc] init];
@@ -63,27 +59,11 @@
         navController.tabBarItem = tabBarItem;
         navController;
     });
-    
-    
-    // DEBUG AdHoc 环境添加一个LogController 查看日志
-    if (kShouldPrint) {
-        // log
-        CMBaseNavigationController *logNavController = ({
-            CMLogManagerViewController *viewController = [[CMLogManagerViewController alloc] init];
-            viewController.hidesBottomBarWhenPushed = NO;
-            CMBaseNavigationController *navController = [[CMBaseNavigationController alloc] initWithRootViewController:viewController];
-            UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:@"日志" image:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] tag:0];
-            tabBarItem.selectedImage = UIImageMake(@"icon_tabbar_lab_selected");
-            navController.tabBarItem = tabBarItem;
-            navController;
-        });
-        tabBarViewController.viewControllers = @[feedNavController,mineNavController,logNavController];
-    } else {
-        tabBarViewController.viewControllers = @[feedNavController,mineNavController];
-    }
-    
+    tabBarViewController.viewControllers = @[feedNavController,mineNavController];
     // window root controller
     self.window.rootViewController = tabBarViewController;
+     */
+    self.window.rootViewController = feedNavController;
     [self.window makeKeyAndVisible];
 }
 

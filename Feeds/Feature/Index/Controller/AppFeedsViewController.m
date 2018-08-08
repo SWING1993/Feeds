@@ -10,6 +10,7 @@
 #import "FeedTableViewCell.h"
 #import "CMBaseRequest.h"
 #import "Feed.h"
+#import "PostFeedViewController.h"
 
 static NSString * const kCellIdentifier = @"cell";
 
@@ -29,14 +30,26 @@ static NSString * const kCellIdentifier = @"cell";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.dataSource = [NSMutableArray array];
     CMBaseRequest *request = [[CMBaseRequest alloc] initWithRequestUrl:@"/feed/getAll" requestMethod:YTKRequestMethodPOST requestArgument:nil];
+    @weakify(self)
     [request startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
-        NSLog(@"request:%@",request.responseString);
-        
+        @strongify(self)
+        if ([request.responseObject[@"result"] boolValue]) {
+            NSArray *data = request.responseObject[@"data"];
+            NSArray *feeds = [[[data rac_sequence] map:^id _Nullable(NSString *json) {
+                Feed *feed = [Feed mj_objectWithKeyValues:json];
+                return feed;
+            }] array];
+            self.dataSource = [feeds mutableCopy];
+            [self.tableView reloadData];
+        } else {
+            [QMUITips showInfo:@"请求失败"];
+        }
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
         NSLog(@"error:%@",request.error);
+        [QMUITips showInfo:@"请求失败"];
     }];
-
 }
 
 
@@ -52,10 +65,8 @@ static NSString * const kCellIdentifier = @"cell";
 }
 
 - (void)handleRightBarButtonItem {
-    NSIndexPath *indexPathForSpecificRow = [NSIndexPath indexPathForRow:2 inSection:0];
-    id<NSCopying> cacheKeyForSpecificRow = [self.tableView.delegate qmui_tableView:self.tableView cacheKeyForRowAtIndexPath:indexPathForSpecificRow];
-    [self.tableView.qmui_currentCellHeightKeyCache invalidateHeightForKey:cacheKeyForSpecificRow];
-    [self.tableView reloadRowsAtIndexPaths:@[indexPathForSpecificRow] withRowAnimation:UITableViewRowAnimationNone];
+    CMBaseNavigationController *postNav = [[CMBaseNavigationController alloc] initWithRootViewController:[[PostFeedViewController alloc] init]];
+    [self presentViewController:postNav animated:YES completion:NULL];
 }
 
 #pragma mark - <QMUITableViewDelegate, QMUITableViewDataSource>
@@ -64,9 +75,12 @@ static NSString * const kCellIdentifier = @"cell";
     Feed *feed = self.dataSource[indexPath.section];
     return feed.content.qmui_md5;
 }
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.dataSource.count;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataSource.count;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

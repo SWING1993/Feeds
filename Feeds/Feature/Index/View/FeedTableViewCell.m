@@ -24,14 +24,14 @@ const CGFloat kContentMarginBotom = 10;
     _avatarImageView = [[UIImageView alloc] initWithImage:avatarImage];
     [self.contentView addSubview:self.avatarImageView];
     
-    _nameLabel = [[UILabel alloc] qmui_initWithFont:UIFontBoldMake(16) textColor:UIColorGray2];
+    _nameLabel = [[UILabel alloc] qmui_initWithFont:UIFontBoldMake(14) textColor:UIColorGray2];
     [self.contentView addSubview:self.nameLabel];
     
-    _contentLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(17) textColor:UIColorGray1];
+    _contentLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(13) textColor:UIColorGray1];
     self.contentLabel.numberOfLines = 0;
     [self.contentView addSubview:self.contentLabel];
     
-    _timeLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(13) textColor:UIColorGray];
+    _timeLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(11) textColor:UIColorGray];
     [self.contentView addSubview:self.timeLabel];
 }
 
@@ -40,7 +40,6 @@ const CGFloat kContentMarginBotom = 10;
     self.nameLabel.text = nameText;
     self.contentLabel.attributedText = [self attributeStringWithString:contentText lineHeight:26];
     self.timeLabel.text = @"昨天 18:24";
-    
     self.contentLabel.textAlignment = NSTextAlignmentJustified;
 }
 

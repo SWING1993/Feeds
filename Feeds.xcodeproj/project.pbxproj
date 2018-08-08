@@ -14,9 +14,6 @@
 		89B22A69211AC29B00F180CF /* CMRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A68211AC29B00F180CF /* CMRequest.m */; };
 		89B22A78211AC2A800F180CF /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A6D211AC2A800F180CF /* NSDate+Utilities.m */; };
 		89B22A79211AC2A800F180CF /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A6E211AC2A800F180CF /* NSDate+Extension.m */; };
-		89B22A7A211AC2A800F180CF /* CMLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A71211AC2A800F180CF /* CMLogManager.m */; };
-		89B22A7B211AC2A800F180CF /* CMLogManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A72211AC2A800F180CF /* CMLogManagerViewController.m */; };
-		89B22A7C211AC2A800F180CF /* CMLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A75211AC2A800F180CF /* CMLogModel.m */; };
 		89B22A89211AC4D200F180CF /* CMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A82211AC4D200F180CF /* CMBaseViewController.m */; };
 		89B22A8A211AC4D200F180CF /* CMBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A84211AC4D200F180CF /* CMBaseRequest.m */; };
 		89B22A8B211AC4D200F180CF /* CMBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A85211AC4D200F180CF /* CMBaseNavigationController.m */; };
@@ -26,6 +23,9 @@
 		89B22A99211ACAAE00F180CF /* AppFeedsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A98211ACAAE00F180CF /* AppFeedsViewController.m */; };
 		89B22A9C211ACAD200F180CF /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A9B211ACAD200F180CF /* Feed.m */; };
 		89B22A9F211ACAFD00F180CF /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A9E211ACAFD00F180CF /* FeedTableViewCell.m */; };
+		89B22AA3211AD42800F180CF /* PostFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22AA2211AD42800F180CF /* PostFeedViewController.m */; };
+		89B22AA7211AD4F200F180CF /* AppUpToFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22AA6211AD4F200F180CF /* AppUpToFile.m */; };
+		89B22AAA211ADCE900F180CF /* PostFeedTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22AA9211ADCE900F180CF /* PostFeedTextCell.m */; };
 		EA717D5C2B31CDD059AB3859 /* libPods-Feeds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC0C6B225F5DE8824DAA797 /* libPods-Feeds.a */; };
 /* End PBXBuildFile section */
 
@@ -45,12 +45,6 @@
 		89B22A6D211AC2A800F180CF /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
 		89B22A6E211AC2A800F180CF /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		89B22A6F211AC2A800F180CF /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
-		89B22A71211AC2A800F180CF /* CMLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMLogManager.m; sourceTree = "<group>"; };
-		89B22A72211AC2A800F180CF /* CMLogManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMLogManagerViewController.m; sourceTree = "<group>"; };
-		89B22A73211AC2A800F180CF /* CMLogModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMLogModel.h; sourceTree = "<group>"; };
-		89B22A74211AC2A800F180CF /* CMLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMLogManager.h; sourceTree = "<group>"; };
-		89B22A75211AC2A800F180CF /* CMLogModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMLogModel.m; sourceTree = "<group>"; };
-		89B22A76211AC2A800F180CF /* CMLogManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMLogManagerViewController.h; sourceTree = "<group>"; };
 		89B22A7F211AC4D200F180CF /* CMBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMBaseNavigationController.h; sourceTree = "<group>"; };
 		89B22A80211AC4D200F180CF /* CMBaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMBaseRequest.h; sourceTree = "<group>"; };
 		89B22A81211AC4D200F180CF /* CMBaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMBaseTableViewController.h; sourceTree = "<group>"; };
@@ -70,6 +64,12 @@
 		89B22A9B211ACAD200F180CF /* Feed.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
 		89B22A9D211ACAFD00F180CF /* FeedTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCell.h; sourceTree = "<group>"; };
 		89B22A9E211ACAFD00F180CF /* FeedTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewCell.m; sourceTree = "<group>"; };
+		89B22AA1211AD42800F180CF /* PostFeedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostFeedViewController.h; sourceTree = "<group>"; };
+		89B22AA2211AD42800F180CF /* PostFeedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostFeedViewController.m; sourceTree = "<group>"; };
+		89B22AA5211AD4F200F180CF /* AppUpToFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppUpToFile.h; sourceTree = "<group>"; };
+		89B22AA6211AD4F200F180CF /* AppUpToFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppUpToFile.m; sourceTree = "<group>"; };
+		89B22AA8211ADCE900F180CF /* PostFeedTextCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostFeedTextCell.h; sourceTree = "<group>"; };
+		89B22AA9211ADCE900F180CF /* PostFeedTextCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostFeedTextCell.m; sourceTree = "<group>"; };
 		9AC0C6B225F5DE8824DAA797 /* libPods-Feeds.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Feeds.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFBD7CC0A250D54038948652 /* Pods-Feeds.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feeds.release.xcconfig"; path = "Pods/Target Support Files/Pods-Feeds/Pods-Feeds.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -193,12 +193,6 @@
 		89B22A70211AC2A800F180CF /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				89B22A73211AC2A800F180CF /* CMLogModel.h */,
-				89B22A75211AC2A800F180CF /* CMLogModel.m */,
-				89B22A74211AC2A800F180CF /* CMLogManager.h */,
-				89B22A71211AC2A800F180CF /* CMLogManager.m */,
-				89B22A76211AC2A800F180CF /* CMLogManagerViewController.h */,
-				89B22A72211AC2A800F180CF /* CMLogManagerViewController.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -206,6 +200,8 @@
 		89B22A77211AC2A800F180CF /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				89B22AA5211AD4F200F180CF /* AppUpToFile.h */,
+				89B22AA6211AD4F200F180CF /* AppUpToFile.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -256,6 +252,8 @@
 			children = (
 				89B22A9D211ACAFD00F180CF /* FeedTableViewCell.h */,
 				89B22A9E211ACAFD00F180CF /* FeedTableViewCell.m */,
+				89B22AA8211ADCE900F180CF /* PostFeedTextCell.h */,
+				89B22AA9211ADCE900F180CF /* PostFeedTextCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -265,6 +263,8 @@
 			children = (
 				89B22A97211ACAAE00F180CF /* AppFeedsViewController.h */,
 				89B22A98211ACAAE00F180CF /* AppFeedsViewController.m */,
+				89B22AA1211AD42800F180CF /* PostFeedViewController.h */,
+				89B22AA2211AD42800F180CF /* PostFeedViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -390,9 +390,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				89B22A8C211AC4D200F180CF /* CMBaseTableViewController.m in Sources */,
-				89B22A7C211AC2A800F180CF /* CMLogModel.m in Sources */,
-				89B22A7B211AC2A800F180CF /* CMLogManagerViewController.m in Sources */,
 				89B22A9C211ACAD200F180CF /* Feed.m in Sources */,
+				89B22AA7211AD4F200F180CF /* AppUpToFile.m in Sources */,
 				89B22A64211AC28200F180CF /* CMMineViewController.m in Sources */,
 				89B22A8B211AC4D200F180CF /* CMBaseNavigationController.m in Sources */,
 				89B22A57211AC0F000F180CF /* main.m in Sources */,
@@ -400,10 +399,11 @@
 				89B22A79211AC2A800F180CF /* NSDate+Extension.m in Sources */,
 				89B22A8A211AC4D200F180CF /* CMBaseRequest.m in Sources */,
 				89B22A69211AC29B00F180CF /* CMRequest.m in Sources */,
-				89B22A7A211AC2A800F180CF /* CMLogManager.m in Sources */,
+				89B22AAA211ADCE900F180CF /* PostFeedTextCell.m in Sources */,
 				89B22A99211ACAAE00F180CF /* AppFeedsViewController.m in Sources */,
 				89B22A8D211AC4D200F180CF /* CMBaseTabBarViewController.m in Sources */,
 				89B22A78211AC2A800F180CF /* NSDate+Utilities.m in Sources */,
+				89B22AA3211AD42800F180CF /* PostFeedViewController.m in Sources */,
 				89B22A93211AC68700F180CF /* AppConfigurationTemplate.m in Sources */,
 				89B22A9F211ACAFD00F180CF /* FeedTableViewCell.m in Sources */,
 				89B22A89211AC4D200F180CF /* CMBaseViewController.m in Sources */,
