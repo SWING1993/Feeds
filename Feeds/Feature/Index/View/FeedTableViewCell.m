@@ -33,6 +33,14 @@ const CGFloat kContentMarginBotom = 10;
     
     _timeLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(11) textColor:UIColorGray];
     [self.contentView addSubview:self.timeLabel];
+    
+    self.gridView = [[QMUIGridView alloc] init];
+    self.gridView.columnCount = 3;
+    self.gridView.rowHeight = 60;
+    self.gridView.separatorWidth = PixelOne;
+    self.gridView.separatorColor = UIColorSeparator;
+    self.gridView.separatorDashed = NO;
+    [self.view addSubview:self.gridView];
 }
 
 - (void)renderWithNameText:(NSString *)nameText contentText:(NSString *)contentText {
@@ -66,7 +74,6 @@ const CGFloat kContentMarginBotom = 10;
     }
     
     resultSize.height = resultHeight;
-    NSLog(@"%@ 的 cell 的 sizeThatFits: 被调用（说明这个 cell 的高度重新计算了一遍）", self.nameLabel.text);
     return resultSize;
 }
 

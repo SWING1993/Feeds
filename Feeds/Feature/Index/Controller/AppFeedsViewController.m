@@ -55,18 +55,18 @@ static NSString * const kCellIdentifier = @"cell";
 
 - (void)setupNavigationItems {
     [super setupNavigationItems];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonItemStyleDone target:self action:@selector(handleRightBarButtonItem)];
+    @weakify(self)
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] bk_initWithImage:UIImageMake(@"feeds_post") style:UIBarButtonItemStyleDone handler:^(id sender) {
+        @strongify(self)
+        CMBaseNavigationController *postNav = [[CMBaseNavigationController alloc] initWithRootViewController:[[PostFeedViewController alloc] init]];
+        [self presentViewController:postNav animated:YES completion:NULL];
+    }];;
 }
 
 - (void)initTableView {
     [super initTableView];
     self.tableView.estimatedRowHeight = 300;
     self.tableView.qmui_cacheCellHeightByKeyAutomatically = YES;
-}
-
-- (void)handleRightBarButtonItem {
-    CMBaseNavigationController *postNav = [[CMBaseNavigationController alloc] initWithRootViewController:[[PostFeedViewController alloc] init]];
-    [self presentViewController:postNav animated:YES completion:NULL];
 }
 
 #pragma mark - <QMUITableViewDelegate, QMUITableViewDataSource>
