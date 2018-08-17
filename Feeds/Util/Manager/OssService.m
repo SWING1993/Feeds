@@ -60,7 +60,9 @@ NSString * const AccessKeySecret = @"vFp8Zxg0apNnNByoeswRfbS4WzjJ9q";
  *    @param     image         图片
  */
 - (void)asyncPutImage:(NSString *)objectKey
-        image:(UIImage *)image {
+                image:(UIImage *)image
+              success:(SuccessBlock)succeesBlock
+               failed:(FailedBlock)failedBlock {
     if (objectKey == nil || [objectKey length] == 0) {
         return;
     }
@@ -80,25 +82,14 @@ NSString * const AccessKeySecret = @"vFp8Zxg0apNnNByoeswRfbS4WzjJ9q";
     }
     OSSTask * task = [client putObject:putRequest];
     [task continueWithBlock:^id(OSSTask *task) {
-        OSSPutObjectResult * result = task.result;
         // 查看server callback是否成功
         if (!task.error) {
             NSLog(@"Put image success!");
-            NSLog(@"server callback : %@", result.serverReturnJsonString);
-            dispatch_async(dispatch_get_main_queue(), ^{
-//                [viewController showMessage:@"普通上传" inputMessage:@"Success!"];
-            });
+            NSString *result = [NSString stringWithFormat:@"https://mybucket-swing.oss-cn-beijing.aliyuncs.com/%@",objectKey];
+            succeesBlock(result);
         } else {
             NSLog(@"Put image failed, %@", task.error);
-            if (task.error.code == OSSClientErrorCodeTaskCancelled) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [viewController showMessage:@"普通上传" inputMessage:@"任务取消!"];
-                });
-            } else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [viewController showMessage:@"普通上传" inputMessage:@"Failed!"];
-                });
-            }
+            failedBlock(task.error);
         }
         self->putRequest = nil;
         return nil;

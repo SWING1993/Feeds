@@ -9,9 +9,9 @@
 #import "PostFeedViewController.h"
 #import "PostFeedTextCell.h"
 #import "PostFeedImageCell.h"
+#import <TZImagePickerController/TZImagePickerController.h>
 
 #define kCellIdentifier_PostEssayImageCell @"PostEssayImageCell"
-
 
 @interface PostFeedViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -118,24 +118,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-    [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-//    [imagePickerController setDelegate:self];
-//    imagePickerController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
-//    imagePickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
-    [self presentViewController:imagePickerController animated:YES completion:nil];
-    imagePickerController.bk_didFinishPickingMediaBlock = ^(UIImagePickerController *pickerController, NSDictionary *info){
-        [pickerController dismissViewControllerAnimated:YES completion:nil];
-        UIImage *aImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-        if (aImage) {
-            OssService *service = [[OssService alloc] init];
-            [service asyncPutImage:@"pic.png" image:aImage];
-        }
-    };
-    
-    imagePickerController.bk_didCancelBlock = ^(UIImagePickerController *pickerController) {
-        [pickerController dismissViewControllerAnimated:YES completion:nil];
-    };
+    [self ss];
+    /*
+     // 图片上传
+     OssService *service = [[OssService alloc] init];
+     [service asyncPutImage:@"pic.png" image:aImage success:^(NSString *result) {
+     
+     } failed:^(NSError *error) {
+     
+     }];
+     */
     
 }
 
@@ -153,6 +145,14 @@
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     return nil;
+}
+
+- (void)ss {
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 delegate:nil];
+    [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
+        
+    }];
+    [self presentViewController:imagePickerVc animated:YES completion:nil];
 }
 
 

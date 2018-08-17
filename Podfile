@@ -13,4 +13,5 @@ target 'Feeds' do
     pod 'SDWebImage'
     pod 'Masonry'
     pod 'BlocksKit'
+    pod 'TZImagePickerController'
 end

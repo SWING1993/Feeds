@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^SuccessBlock)(NSString *result);
+typedef void (^FailedBlock)(NSError *error);
+
 extern NSString* const BUCKET_NAME;
 extern NSString* const endPoint;
 extern NSString* const AccessKeyId;
@@ -18,7 +21,9 @@ extern NSString* const AccessKeySecret;
 - (id)init;
 
 - (void)asyncPutImage:(NSString *)objectKey
-                image:(UIImage *)image;
+                image:(UIImage *)image
+              success:(SuccessBlock)succeesBlock
+               failed:(FailedBlock)failedBlock;
 
 - (void)normalRequestCancel;
 
