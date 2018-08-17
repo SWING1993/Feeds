@@ -8,6 +8,11 @@
 
 #import "PostFeedViewController.h"
 #import "PostFeedTextCell.h"
+#import "PostFeedImageCell.h"
+
+#define kCellIdentifier_PostEssayImageCell @"PostEssayImageCell"
+
+
 @interface PostFeedViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)TPKeyboardAvoidingTableView *tableView;
@@ -24,7 +29,6 @@
 - (void)initSubviews {
     [super initSubviews];
     self.view.backgroundColor = [UIColor whiteColor];
-
     [self.view addSubview:self.tableView];
 }
 
@@ -42,7 +46,6 @@
     [RACSignal combineLatest:@[RACObserve(self, feedContent)] reduce:^id (NSString *mdStr){
         return @(!kStringIsEmpty(mdStr));
     }];
-
 }
 
 - (void)dismissViewController {
@@ -78,7 +81,7 @@
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerClass:[PostFeedTextCell class] forCellReuseIdentifier:kCellIdentifier_PostEssayTextCell];
-//        [_tableView registerClass:[PostEssayImageCell class] forCellReuseIdentifier:kCellIdentifier_PostEssayImageCell];
+        [_tableView registerClass:[PostFeedImageCell class] forCellReuseIdentifier:kCellIdentifier_PostEssayImageCell];
     }
     return _tableView;
 }
@@ -88,24 +91,19 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 1;
-    }
-    return 0;
+    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0 && indexPath.row == 0) {
+    if (indexPath.row == 0) {
         return [PostFeedTextCell cellHeight];
+    } else {
+        return 40;
     }
-//    if (indexPath.section == 0 && indexPath.row == 1) {
-//        return [PostEssayImageCell cellHeightWithImageCount:self.curPostEssayM.essayImages.count];
-//    }
-    return CGFLOAT_MIN;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0 && indexPath.row == 0) {
+    if (indexPath.row == 0) {
         PostFeedTextCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_PostEssayTextCell forIndexPath:indexPath];
         @weakify(self)
         cell.textValueChangedBlock = ^(NSString *valueStr){
@@ -113,30 +111,35 @@
             self.feedContent = valueStr;
         };
         return cell;
+    } else {
+        PostFeedImageCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_PostEssayImageCell forIndexPath:indexPath];
+        return cell;
     }
-//    if (indexPath.section == 0 && indexPath.row == 1) {
-//        PostEssayImageCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_PostEssayImageCell forIndexPath:indexPath];
-//        cell.curPostEssayM = self.curPostEssayM;
-//        @weakify(self)
-//        cell.addPicturesBlock = ^(){
-//            @strongify(self)
-//            [self inputViewresignFirstResponder];
-//            [self addPictActionSheet];
-//        };
-//        cell.deleteImageBlock = ^(NSInteger index) {
-//            @strongify(self)
-//            [self deletePhotosWith:index];
-//        };
-//        return cell;
-//    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+//    [imagePickerController setDelegate:self];
+//    imagePickerController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+//    imagePickerController.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+    imagePickerController.bk_didFinishPickingMediaBlock = ^(UIImagePickerController *pickerController, NSDictionary *info){
+        [pickerController dismissViewControllerAnimated:YES completion:nil];
+        UIImage *aImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+        if (aImage) {
+            OssService *service = [[OssService alloc] init];
+            [service asyncPutImage:@"pic.png" image:aImage];
+        }
+    };
     
-    return nil;
+    imagePickerController.bk_didCancelBlock = ^(UIImagePickerController *pickerController) {
+        [pickerController dismissViewControllerAnimated:YES completion:nil];
+    };
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
-        return 1;
-    }
     return CGFLOAT_MIN;
 }
 

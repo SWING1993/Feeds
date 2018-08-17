@@ -1,7 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 target 'Feeds' do
-    pod 'Qiniu', :git => 'https://github.com/qiniu/objc-sdk.git', :branch => 'AFNetworking-3.x'
+    pod 'AliyunOSSiOS'
     pod 'QMUIKit'
     pod 'ReactiveObjC'
     pod 'YTKNetwork'
