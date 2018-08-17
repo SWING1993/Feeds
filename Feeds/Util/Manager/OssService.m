@@ -16,7 +16,6 @@ NSString * const AccessKeySecret = @"vFp8Zxg0apNnNByoeswRfbS4WzjJ9q";
 
 @interface OssService () {
     OSSClient * client;
-    NSString * callbackAddress;
     OSSPutObjectRequest * putRequest;
     BOOL isCancelled;
 }
@@ -56,30 +55,23 @@ NSString * const AccessKeySecret = @"vFp8Zxg0apNnNByoeswRfbS4WzjJ9q";
 /**
  *    @brief    上传图片
  *
- *    @param     objectKey     objectKey
  *    @param     image         图片
  */
-- (void)asyncPutImage:(NSString *)objectKey
-                image:(UIImage *)image
+- (void)asyncPutImage:(UIImage *)image
               success:(SuccessBlock)succeesBlock
                failed:(FailedBlock)failedBlock {
-    if (objectKey == nil || [objectKey length] == 0) {
+    if (image == nil) {
         return;
     }
+    NSString *objectKey = [NSString stringWithFormat:@"%@.png",[OssService getFileName]];
+    
     putRequest = [OSSPutObjectRequest new];
     putRequest.bucketName = BUCKET_NAME;
     putRequest.objectKey = objectKey;
-    putRequest.uploadingData = UIImagePNGRepresentation(image); // 直接上传NSData
+    putRequest.uploadingData = UIImagePNGRepresentation(image);
     putRequest.uploadProgress = ^(int64_t bytesSent, int64_t totalByteSent, int64_t totalBytesExpectedToSend) {
         NSLog(@"%lld, %lld, %lld", bytesSent, totalByteSent, totalBytesExpectedToSend);
     };
-    if (callbackAddress != nil) {
-        putRequest.callbackParam = @{
-                                     @"callbackUrl": callbackAddress,
-                                     // callbackBody可自定义传入的信息
-                                     @"callbackBody": @"filename=${object}"
-                                     };
-    }
     OSSTask * task = [client putObject:putRequest];
     [task continueWithBlock:^id(OSSTask *task) {
         // 查看server callback是否成功
@@ -103,6 +95,13 @@ NSString * const AccessKeySecret = @"vFp8Zxg0apNnNByoeswRfbS4WzjJ9q";
     if (putRequest) {
         [putRequest cancel];
     }
+}
+
+/** 图片的路径名 */
++ (NSString *)getFileName {
+    NSString *newUuidStr = [[[NSString generateUuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""] lowercaseString];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitYear| NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[NSDate date]];
+    return [NSString stringWithFormat:@"ios/%@/%@/%@/%@",@(components.year),@(components.month),@(components.day),newUuidStr];
 }
 
 

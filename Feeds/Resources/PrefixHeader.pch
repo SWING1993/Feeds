@@ -163,6 +163,7 @@
 #import <Masonry/Masonry.h>
 
 #import "NSDate+Extension.h"
+#import "NSString+Common.h"
 
 #import "CMBaseRequest.h"
 #import "AppConfigurationTemplate.h"

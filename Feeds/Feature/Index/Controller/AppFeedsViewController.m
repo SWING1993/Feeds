@@ -31,12 +31,12 @@ static NSString * const kCellIdentifier = @"cell";
     // Do any additional setup after loading the view.
     
     self.dataSource = [NSMutableArray array];
-    CMBaseRequest *request = [[CMBaseRequest alloc] initWithRequestUrl:@"/feed/getAll" requestMethod:YTKRequestMethodPOST requestArgument:nil];
+    CMBaseRequest *request = [[CMBaseRequest alloc] initWithRequestUrl:@"/feed/getAll" requestMethod:YTKRequestMethodGET requestArgument:nil];
     @weakify(self)
     [request startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         @strongify(self)
-        if ([request.responseObject[@"result"] boolValue]) {
-            NSArray *data = request.responseObject[@"data"];
+        if ([request.responseObject[@"success"] boolValue]) {
+            NSArray *data = request.responseObject[@"result"];
             NSArray *feeds = [[[data rac_sequence] map:^id _Nullable(NSString *json) {
                 Feed *feed = [Feed mj_objectWithKeyValues:json];
                 return feed;

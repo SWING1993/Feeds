@@ -12,6 +12,7 @@
 		89002A8421257C3700CD0C8E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89002A8321257C3700CD0C8E /* CoreTelephony.framework */; };
 		89002A98212660C900CD0C8E /* OssService.m in Sources */ = {isa = PBXBuildFile; fileRef = 89002A97212660C900CD0C8E /* OssService.m */; };
 		89002A9F2126674400CD0C8E /* PostFeedImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89002A9E2126674400CD0C8E /* PostFeedImageCell.m */; };
+		89002AA421269D5A00CD0C8E /* NSString+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 89002AA321269D5A00CD0C8E /* NSString+Common.m */; };
 		89B22A49211AC0EF00F180CF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A48211AC0EF00F180CF /* AppDelegate.m */; };
 		89B22A51211AC0F000F180CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89B22A50211AC0F000F180CF /* Assets.xcassets */; };
 		89B22A57211AC0F000F180CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B22A56211AC0F000F180CF /* main.m */; };
@@ -42,6 +43,8 @@
 		89002A97212660C900CD0C8E /* OssService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OssService.m; sourceTree = "<group>"; };
 		89002A9D2126674400CD0C8E /* PostFeedImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostFeedImageCell.h; sourceTree = "<group>"; };
 		89002A9E2126674400CD0C8E /* PostFeedImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostFeedImageCell.m; sourceTree = "<group>"; };
+		89002AA221269D5A00CD0C8E /* NSString+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Common.h"; sourceTree = "<group>"; };
+		89002AA321269D5A00CD0C8E /* NSString+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Common.m"; sourceTree = "<group>"; };
 		89B22A44211AC0EF00F180CF /* Feeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feeds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89B22A47211AC0EF00F180CF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		89B22A48211AC0EF00F180CF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -197,6 +200,8 @@
 		89B22A6B211AC2A800F180CF /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				89002AA221269D5A00CD0C8E /* NSString+Common.h */,
+				89002AA321269D5A00CD0C8E /* NSString+Common.m */,
 				89B22A6C211AC2A800F180CF /* NSDate+Extension.h */,
 				89B22A6D211AC2A800F180CF /* NSDate+Utilities.m */,
 				89B22A6E211AC2A800F180CF /* NSDate+Extension.m */,
@@ -412,6 +417,7 @@
 				89B22A9C211ACAD200F180CF /* Feed.m in Sources */,
 				89B22A64211AC28200F180CF /* CMMineViewController.m in Sources */,
 				89B22A8B211AC4D200F180CF /* CMBaseNavigationController.m in Sources */,
+				89002AA421269D5A00CD0C8E /* NSString+Common.m in Sources */,
 				89B22A57211AC0F000F180CF /* main.m in Sources */,
 				89B22A49211AC0EF00F180CF /* AppDelegate.m in Sources */,
 				89B22A79211AC2A800F180CF /* NSDate+Extension.m in Sources */,

@@ -17,7 +17,7 @@
 
 @property (nonatomic, strong) TPKeyboardAvoidingTableView *tableView;
 @property (nonatomic, copy) NSString *feedContent;
-@property (nonatomic, copy) NSArray *feedImages;
+@property (nonatomic, copy) NSArray <UIImage *> *feedImages;
 
 @end
 
@@ -58,12 +58,42 @@
     if (kStringIsEmpty(self.feedContent)) {
         return;
     }
-    NSDictionary *argument = @{@"content":self.feedContent,@"uid":@"88"};
+    if (self.feedImages.count > 0) {
+        NSMutableArray *imageUrls = [NSMutableArray arrayWithCapacity:self.feedImages.count];
+        for (UIImage *image in self.feedImages) {
+            OssService *service = [[OssService alloc] init];
+            @weakify(self)
+            [service asyncPutImage:image success:^(NSString *result) {
+                [imageUrls addObject:result];
+                if (imageUrls.count == self.feedImages.count) {
+                    @strongify(self)
+                    [self postActionWithContent:self.feedContent imageUrls:imageUrls];
+                }
+            } failed:^(NSError *error) {
+                
+            }];
+        }
+    } else {
+        [self postActionWithContent:self.feedContent imageUrls:nil];
+    }
+}
+
+- (void)postActionWithContent:(NSString *)content imageUrls:(NSArray *)imageUrls {
+    NSString *imageStr = @"";
+    if (imageUrls.count > 0) {
+        NSMutableString *mutableStr = [[NSMutableString alloc] initWithString:[imageUrls firstObject]];
+        for (NSInteger x = 1; x < imageUrls.count; x ++) {
+            NSString *urlStr = imageUrls[x];
+            [mutableStr appendString:[NSString stringWithFormat:@",%@",urlStr]];
+        }
+        imageStr = [mutableStr copy];
+    }
+    NSDictionary *argument = @{@"content":self.feedContent,@"imageUrls":imageStr,@"uid":@"102"};
     CMBaseRequest *request = [[CMBaseRequest alloc] initWithRequestUrl:@"/feed/add" requestMethod:YTKRequestMethodPOST requestArgument:argument];
     @weakify(self)
     [request startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         @strongify(self)
-        if ([request.responseObject[@"result"] boolValue]) {
+        if ([request.responseObject[@"success"] boolValue]) {
             [self dismissViewControllerAnimated:YES completion:NULL];
         } else {
             [QMUITips showInfo:@"请求失败"];
