@@ -10,4 +10,10 @@
 
 @interface PostFeedImageCell : QMUITableViewCell
 
+@property (nonatomic, copy) NSArray <UIImage*> *images;
+@property (copy, nonatomic) void (^addPicturesBlock)(void);
+@property (copy, nonatomic) void (^deleteImageBlock)(NSInteger index);
+
++ (CGFloat)cellHeightWithImageCount:(NSUInteger)count;
+
 @end

@@ -15,8 +15,10 @@
 
 @interface PostFeedViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property(nonatomic,strong)TPKeyboardAvoidingTableView *tableView;
-@property(nonatomic,copy)NSString *feedContent;
+@property (nonatomic, strong) TPKeyboardAvoidingTableView *tableView;
+@property (nonatomic, copy) NSString *feedContent;
+@property (nonatomic, copy) NSArray *feedImages;
+
 @end
 
 @implementation PostFeedViewController
@@ -98,7 +100,7 @@
     if (indexPath.row == 0) {
         return [PostFeedTextCell cellHeight];
     } else {
-        return 40;
+        return [PostFeedImageCell cellHeightWithImageCount:self.feedImages.count];
     }
 }
 
@@ -113,22 +115,21 @@
         return cell;
     } else {
         PostFeedImageCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_PostEssayImageCell forIndexPath:indexPath];
+        cell.images = self.feedImages;
+        @weakify(self)
+        cell.addPicturesBlock = ^(){
+            @strongify(self)
+            [self addPictAction];
+        };
+        cell.deleteImageBlock = ^(NSInteger index) {
+            @strongify(self)
+            NSMutableArray *images = [NSMutableArray arrayWithArray:self.feedImages];
+            [images removeObjectAtIndex:index];
+            self.feedImages = [images copy];
+            [self.tableView reloadData];
+        };
         return cell;
     }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self ss];
-    /*
-     // 图片上传
-     OssService *service = [[OssService alloc] init];
-     [service asyncPutImage:@"pic.png" image:aImage success:^(NSString *result) {
-     
-     } failed:^(NSError *error) {
-     
-     }];
-     */
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -147,10 +148,13 @@
     return nil;
 }
 
-- (void)ss {
+- (void)addPictAction {
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 delegate:nil];
+    @weakify(self)
     [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
-        
+        @strongify(self)
+        self.feedImages = photos;
+        [self.tableView reloadData];
     }];
     [self presentViewController:imagePickerVc animated:YES completion:nil];
 }
