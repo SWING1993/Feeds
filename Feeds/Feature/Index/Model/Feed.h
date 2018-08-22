@@ -10,11 +10,12 @@
 
 @interface Feed : NSObject
 
-@property(nonatomic,assign)long id;
-@property(nonatomic,assign)long uid;
-@property(nonatomic,copy)NSString *author;
-@property(nonatomic,copy)NSString *avatar;
-@property(nonatomic,copy)NSString *content;
-@property(nonatomic,copy)NSString *created;
+@property (nonatomic, assign) long id;
+@property (nonatomic, assign) long uid;
+@property (nonatomic, copy) NSString *author;
+@property (nonatomic, copy) NSString *avatar;
+@property (nonatomic, copy) NSString *content;
+@property (nonatomic, copy) NSString *created;
+@property (nonatomic, copy) NSString *imageUrls;
 
 @end

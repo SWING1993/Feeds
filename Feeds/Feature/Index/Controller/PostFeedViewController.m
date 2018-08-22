@@ -88,7 +88,7 @@
         }
         imageStr = [mutableStr copy];
     }
-    NSDictionary *argument = @{@"content":self.feedContent,@"imageUrls":imageStr,@"uid":@"102"};
+    NSDictionary *argument = @{@"content":self.feedContent,@"imageUrls":imageStr,@"uid":@"1"};
     CMBaseRequest *request = [[CMBaseRequest alloc] initWithRequestUrl:@"/feed/add" requestMethod:YTKRequestMethodPOST requestArgument:argument];
     @weakify(self)
     [request startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
@@ -99,7 +99,6 @@
             [QMUITips showInfo:@"请求失败"];
         }
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
-        NSLog(@"error:%@",request.error);
         [QMUITips showInfo:@"请求失败"];
     }];
 }

@@ -10,15 +10,18 @@
 
 static NSString * const kCellIdentifier = @"cell";
 const UIEdgeInsets kInsets = {15, 16, 15, 16};
-const CGFloat kAvatarSize = 30;
+const CGFloat kAvatarSize = 40;
 const CGFloat kAvatarMarginRight = 12;
 const CGFloat kAvatarMarginBottom = 6;
 const CGFloat kContentMarginBotom = 10;
+const CGFloat kImageMarginSpace = 10;
 
 @implementation FeedTableViewCell
 
 - (void)didInitializeWithStyle:(UITableViewCellStyle)style {
     [super didInitializeWithStyle:style];
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     UIImage *avatarImage = [UIImage qmui_imageWithStrokeColor:UIColorTheme1 size:CGSizeMake(kAvatarSize, kAvatarSize) lineWidth:3 cornerRadius:6];
     _avatarImageView = [[UIImageView alloc] initWithImage:avatarImage];
@@ -34,21 +37,41 @@ const CGFloat kContentMarginBotom = 10;
     _timeLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(11) textColor:UIColorGray];
     [self.contentView addSubview:self.timeLabel];
     
-//    self.gridView = [[QMUIGridView alloc] init];
-//    self.gridView.columnCount = 3;
-//    self.gridView.rowHeight = 60;
-//    self.gridView.separatorWidth = PixelOne;
-//    self.gridView.separatorColor = UIColorSeparator;
-//    self.gridView.separatorDashed = NO;
-//    [self.view addSubview:self.gridView];
+    self.gridView = [[QMUIGridView alloc] init];
+    self.gridView.columnCount = 3;
+    self.gridView.separatorWidth = kImageMarginSpace;
+    self.gridView.separatorColor = [UIColor clearColor];
+    self.gridView.separatorDashed = NO;
+    [self.contentView addSubview:self.gridView];
 }
 
-- (void)renderWithNameText:(NSString *)nameText contentText:(NSString *)contentText {
-    
-    self.nameLabel.text = nameText;
-    self.contentLabel.attributedText = [self attributeStringWithString:contentText lineHeight:26];
-    self.timeLabel.text = @"昨天 18:24";
+- (void)renderWithFeed:(Feed *)feed {
+    self.feed = feed;
+    self.nameLabel.text = feed.avatar;
+    self.contentLabel.attributedText = [self attributeStringWithString:feed.content lineHeight:26];
+    self.timeLabel.text = feed.created;
     self.contentLabel.textAlignment = NSTextAlignmentJustified;
+    
+    NSArray *imageArr = [self imageUrlArrayWithStr:feed.imageUrls];
+    self.imageNum = imageArr.count;
+    
+    self.gridView.rowHeight = [self gridRowHeightWithNum:self.imageNum];
+    [self.gridView.subviews bk_each:^(UIView *view) {
+        [view removeFromSuperview];
+    }];
+    
+    for (NSInteger i = 0; i < self.imageNum; i ++) {
+        NSString *urlStr = imageArr[i];
+        UIImageView *imageView = [[UIImageView alloc] init];
+        imageView.tag = i + 1;
+        [imageView sd_setImageWithURL:[NSURL URLWithString:urlStr]];
+        imageView.backgroundColor = [UIColor colorWithRed:(arc4random()%256)/256.f
+                                               green:(arc4random()%256)/256.f
+                                                blue:(arc4random()%256)/256.f
+                                               alpha:0.8f];
+        [self.gridView addSubview:imageView];
+    }
+ 
 }
 
 - (NSAttributedString *)attributeStringWithString:(NSString *)textString lineHeight:(CGFloat)lineHeight {
@@ -60,19 +83,18 @@ const CGFloat kContentMarginBotom = 10;
 - (CGSize)sizeThatFits:(CGSize)size {
     CGSize resultSize = CGSizeMake(size.width, 0);
     CGFloat contentLabelWidth = size.width - UIEdgeInsetsGetHorizontalValue(kInsets);
-    
     CGFloat resultHeight = UIEdgeInsetsGetHorizontalValue(kInsets) + CGRectGetHeight(self.avatarImageView.bounds) + kAvatarMarginBottom;
-    
     if (self.contentLabel.text.length > 0) {
         CGSize contentSize = [self.contentLabel sizeThatFits:CGSizeMake(contentLabelWidth, CGFLOAT_MAX)];
         resultHeight += (contentSize.height + kContentMarginBotom);
     }
-    
     if (self.timeLabel.text.length > 0) {
         CGSize timeSize = [self.timeLabel sizeThatFits:CGSizeMake(contentLabelWidth, CGFLOAT_MAX)];
         resultHeight += timeSize.height;
     }
-    
+    if (self.imageNum > 0) {
+        resultHeight += [self gridViewHeightWithNum:self.imageNum];
+    }
     resultSize.height = resultHeight;
     return resultSize;
 }
@@ -90,10 +112,38 @@ const CGFloat kContentMarginBotom = 10;
         CGSize contentSize = [self.contentLabel sizeThatFits:CGSizeMake(contentLabelWidth, CGFLOAT_MAX)];
         self.contentLabel.frame = CGRectFlatMake(kInsets.left, CGRectGetMaxY(self.avatarImageView.frame) + kAvatarMarginBottom, contentLabelWidth, contentSize.height);
     }
+    
+    self.gridView.frame = CGRectFlatMake(kInsets.left, CGRectGetMaxY(self.contentLabel.frame) + kContentMarginBotom, contentLabelWidth, [self gridViewHeightWithNum:self.imageNum]);
+
     if (self.timeLabel.text.length > 0) {
         CGSize timeSize = [self.timeLabel sizeThatFits:CGSizeMake(contentLabelWidth, CGFLOAT_MAX)];
-        self.timeLabel.frame = CGRectFlatMake(CGRectGetMinX(self.contentLabel.frame), CGRectGetMaxY(self.contentLabel.frame) + kContentMarginBotom, contentLabelWidth, timeSize.height);
+        self.timeLabel.frame = CGRectFlatMake(CGRectGetMinX(self.contentLabel.frame), CGRectGetMaxY(self.gridView.frame) + kContentMarginBotom, contentLabelWidth, timeSize.height);
     }
+
+}
+
+- (CGFloat)gridRowHeightWithNum:(NSInteger)num {
+    if (num == 0) {
+        return CGFLOAT_MIN;
+    }
+    CGFloat contentLabelWidth = CGRectGetWidth(self.contentView.bounds) - UIEdgeInsetsGetHorizontalValue(kInsets);
+    NSInteger x = ceil(num/3.0);
+    CGFloat rowHeight = (contentLabelWidth - ((x-1)*kImageMarginSpace))/3;
+    return rowHeight;
+}
+
+- (CGFloat)gridViewHeightWithNum:(NSInteger)num {
+    if (num == 0) {
+        return CGFLOAT_MIN;
+    }
+    NSInteger x = ceil(num/3.0);
+    return [self gridRowHeightWithNum:num]*x+kImageMarginSpace*(x-1);
+}
+
+- (NSArray *)imageUrlArrayWithStr:(NSString *)str {
+    return [[str componentsSeparatedByString:@","] bk_select:^BOOL(NSString *url) {
+        return [url hasPrefix:@"http"];
+    }];
 }
 
 @end

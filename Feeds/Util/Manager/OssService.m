@@ -63,12 +63,12 @@ NSString * const AccessKeySecret = @"vFp8Zxg0apNnNByoeswRfbS4WzjJ9q";
     if (image == nil) {
         return;
     }
-    NSString *objectKey = [NSString stringWithFormat:@"%@.png",[OssService getFileName]];
+    NSString *objectKey = [NSString stringWithFormat:@"%@.jpg",[OssService getFileName]];
     
     putRequest = [OSSPutObjectRequest new];
     putRequest.bucketName = BUCKET_NAME;
     putRequest.objectKey = objectKey;
-    putRequest.uploadingData = UIImagePNGRepresentation(image);
+    putRequest.uploadingData = UIImageJPEGRepresentation(image, 0.1);
     putRequest.uploadProgress = ^(int64_t bytesSent, int64_t totalByteSent, int64_t totalBytesExpectedToSend) {
         NSLog(@"%lld, %lld, %lld", bytesSent, totalByteSent, totalBytesExpectedToSend);
     };

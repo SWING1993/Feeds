@@ -31,6 +31,11 @@ static NSString * const kCellIdentifier = @"cell";
     // Do any additional setup after loading the view.
     
     self.dataSource = [NSMutableArray array];
+  
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     CMBaseRequest *request = [[CMBaseRequest alloc] initWithRequestUrl:@"/feed/getAll" requestMethod:YTKRequestMethodGET requestArgument:nil];
     @weakify(self)
     [request startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
@@ -52,7 +57,6 @@ static NSString * const kCellIdentifier = @"cell";
     }];
 }
 
-
 - (void)setupNavigationItems {
     [super setupNavigationItems];
     @weakify(self)
@@ -73,8 +77,9 @@ static NSString * const kCellIdentifier = @"cell";
 
 - (id<NSCopying>)qmui_tableView:(UITableView *)tableView cacheKeyForRowAtIndexPath:(NSIndexPath *)indexPath {
     Feed *feed = self.dataSource[indexPath.section];
-    return feed.content.qmui_md5;
+    return [NSString stringWithFormat:@"%@-%@",feed.content,feed.imageUrls].qmui_md5;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataSource.count;
 }
@@ -90,8 +95,8 @@ static NSString * const kCellIdentifier = @"cell";
     }
     cell.separatorInset = UIEdgeInsetsZero;
     Feed *feed = self.dataSource[indexPath.section];
+    [cell renderWithFeed:feed];
     [cell updateCellAppearanceWithIndexPath:indexPath];
-    [cell renderWithNameText:feed.author contentText:feed.content];
     return cell;
 }
 
