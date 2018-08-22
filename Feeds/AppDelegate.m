@@ -24,6 +24,13 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
+    
+    NSArray *numbers = @[ @(1), @(2), @(3) ];
+    NSArray *letters = @[ @"1", @"2", @"3" ];
+    BOOL doesCorrespond = [numbers bk_corresponds:letters withBlock:^(id number, id letter) {
+        return [[number stringValue] isEqualToString:letter];
+    }];
+    
     [self configNetworkSetting];
     
     // app配置表

@@ -34,13 +34,13 @@ const CGFloat kContentMarginBotom = 10;
     _timeLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(11) textColor:UIColorGray];
     [self.contentView addSubview:self.timeLabel];
     
-    self.gridView = [[QMUIGridView alloc] init];
-    self.gridView.columnCount = 3;
-    self.gridView.rowHeight = 60;
-    self.gridView.separatorWidth = PixelOne;
-    self.gridView.separatorColor = UIColorSeparator;
-    self.gridView.separatorDashed = NO;
-    [self.view addSubview:self.gridView];
+//    self.gridView = [[QMUIGridView alloc] init];
+//    self.gridView.columnCount = 3;
+//    self.gridView.rowHeight = 60;
+//    self.gridView.separatorWidth = PixelOne;
+//    self.gridView.separatorColor = UIColorSeparator;
+//    self.gridView.separatorDashed = NO;
+//    [self.view addSubview:self.gridView];
 }
 
 - (void)renderWithNameText:(NSString *)nameText contentText:(NSString *)contentText {
