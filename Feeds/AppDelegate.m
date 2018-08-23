@@ -35,7 +35,7 @@
 }
 
 - (void)createTabBarController {
-//    CMBaseTabBarViewController *tabBarViewController = [[CMBaseTabBarViewController alloc] init];
+    CMBaseTabBarViewController *tabBarViewController = [[CMBaseTabBarViewController alloc] init];
     
     // index
     CMBaseNavigationController *feedNavController = ({
@@ -48,7 +48,6 @@
         navController;
     });
     
-    /*
     // mine
     CMBaseNavigationController *mineNavController = ({
         CMMineViewController *viewController = [[CMMineViewController alloc] init];
@@ -62,8 +61,7 @@
     tabBarViewController.viewControllers = @[feedNavController,mineNavController];
     // window root controller
     self.window.rootViewController = tabBarViewController;
-     */
-    self.window.rootViewController = feedNavController;
+//    self.window.rootViewController = feedNavController;
     [self.window makeKeyAndVisible];
 }
 
@@ -75,9 +73,7 @@
     config.securityPolicy.validatesDomainName = NO;
 }
 
-
 #pragma mark - Action
-
 + (UIViewController *)presentingVC {
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     if (window.windowLevel != UIWindowLevelNormal)

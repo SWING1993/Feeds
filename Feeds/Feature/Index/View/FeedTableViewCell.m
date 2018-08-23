@@ -19,11 +19,12 @@ const CGFloat kImageMarginSpace = 10;
 @implementation FeedTableViewCell
 
 - (void)didInitializeWithStyle:(UITableViewCellStyle)style {
+    
     [super didInitializeWithStyle:style];
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    UIImage *avatarImage = [UIImage qmui_imageWithStrokeColor:UIColorTheme1 size:CGSizeMake(kAvatarSize, kAvatarSize) lineWidth:3 cornerRadius:6];
+    UIImage *avatarImage = [UIImage qmui_imageWithStrokeColor:UIColorTheme1 size:CGSizeMake(kAvatarSize, kAvatarSize) lineWidth:CGFLOAT_MIN cornerRadius:CGFLOAT_MIN];
     _avatarImageView = [[UIImageView alloc] initWithImage:avatarImage];
     [self.contentView addSubview:self.avatarImageView];
     
@@ -37,9 +38,6 @@ const CGFloat kImageMarginSpace = 10;
     _timeLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(11) textColor:UIColorGray];
     [self.contentView addSubview:self.timeLabel];
     
-    
-
-    
     self.gridView = [[QMUIGridView alloc] init];
     self.gridView.columnCount = 3;
     self.gridView.separatorWidth = kImageMarginSpace;
@@ -49,13 +47,14 @@ const CGFloat kImageMarginSpace = 10;
     self.gridView.rowHeight = (contentLabelWidth - (2*kImageMarginSpace))/3;
     [self.contentView addSubview:self.gridView];
     
-    
-    
 }
 
 - (void)renderWithFeed:(Feed *)feed {
     self.feed = feed;
-    self.nameLabel.text = feed.avatar;
+    if (!kStringIsEmpty(feed.avatar)) {
+        [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:feed.avatar]];
+    }
+    self.nameLabel.text = feed.author;
     self.contentLabel.attributedText = [self attributeStringWithString:feed.content lineHeight:26];
     self.timeLabel.text = feed.created;
     self.contentLabel.textAlignment = NSTextAlignmentJustified;

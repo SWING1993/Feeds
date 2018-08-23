@@ -10,7 +10,7 @@
 
 @interface CMMineViewController ()
 
-@property(nonatomic, strong) QMUIGridView *gridView;
+@property(nonatomic, strong) UIImageView *avatarView;
 
 @end
 
@@ -21,33 +21,82 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    CMBaseRequest *request = [[CMBaseRequest alloc] initWithRequestUrl:@"/user/getById" requestMethod:YTKRequestMethodGET requestArgument:@{@"id":@"1"}];
+    @weakify(self)
+    [request startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+        @strongify(self)
+        if ([request.responseObject[@"success"] boolValue]) {
+            NSDictionary *result = request.responseObject[@"result"];
+            if (!kStringIsEmpty(result[@"avatar"])) {
+                [self.avatarView sd_setImageWithURL:[NSURL URLWithString:result[@"avatar"]]];
+            }
+        } else {
+            [QMUITips showInfo:@"请求失败"];
+        }
+    } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+        [QMUITips showInfo:@"请求失败"];
+    }];
+}
+
 - (void)initSubviews {
     [super initSubviews];
     [self setTitle:@"我的"];
+   
+    
+    self.avatarView = [[UIImageView alloc] init];
+    self.avatarView.backgroundColor = UIColorTheme2;
+    self.avatarView.userInteractionEnabled = YES;
+    [self.view addSubview:self.avatarView];
+
+    @weakify(self)
+
+    [self.avatarView bk_whenTapped:^{
+        @strongify(self)
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+        imagePickerController.bk_didCancelBlock = ^(UIImagePickerController *picker) {
+            [picker dismissViewControllerAnimated:YES completion:nil];
+        };
+        @weakify(self)
+        imagePickerController.bk_didFinishPickingMediaBlock = ^(UIImagePickerController *picker, NSDictionary *info) {
+            [picker dismissViewControllerAnimated:YES completion:nil];
+            @strongify(self)
+            UIImage *aImage = info[UIImagePickerControllerOriginalImage];
+            OssService *service = [[OssService alloc] init];
+            [service asyncPutImage:aImage success:^(NSString *result) {
+                kDISPATCH_MAIN_THREAD(^{
+                    self.avatarView.image = aImage;
+                })
+                
+                CMBaseRequest *request = [[CMBaseRequest alloc] initWithRequestUrl:@"/user/updateAvatar" requestMethod:YTKRequestMethodPOST requestArgument:@{@"id":@"1",@"avatar":result}];
+                [request startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+                    if ([request.responseObject[@"success"] boolValue]) {
+                        [QMUITips showSucceed:@"上传成功"];
+                    } else {
+                        [QMUITips showInfo:@"请求失败"];
+                    }
+                } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+                    [QMUITips showInfo:@"请求失败"];
+                }];
+                
+            } failed:^(NSError *error) {
+                kDISPATCH_MAIN_THREAD(^{
+                    [QMUITips showSucceed:@"上传失败"];
+                })
+            }];
+        };
+        
+    }];
     
     
-    self.gridView = [[QMUIGridView alloc] init];
-    self.gridView.columnCount = 3;
-    self.gridView.rowHeight = 180;
-    self.gridView.separatorWidth = PixelOne;
-    self.gridView.separatorColor = UIColorSeparator;
-    self.gridView.separatorDashed = NO;
-    [self.view addSubview:self.gridView];      
-    
-    // 将要布局的 item 以 addSubview: 的方式添加进去即可自动布局
-    NSArray<UIColor *> *themeColors = @[UIColorTheme1, UIColorTheme2, UIColorTheme3, UIColorTheme4, UIColorTheme5, UIColorTheme6, UIColorTheme7, UIColorTheme8];
-    for (NSInteger i = 0; i < themeColors.count; i++) {
-        UIView *view = [[UIView alloc] init];
-        view.backgroundColor = themeColors[i];
-        [self.gridView addSubview:view];
-    }
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    UIEdgeInsets padding = UIEdgeInsetsMake(24 + self.qmui_navigationBarMaxYInViewCoordinator, 24, 24, 24);
-    CGFloat contentWidth = CGRectGetWidth(self.view.bounds) - UIEdgeInsetsGetHorizontalValue(padding);
-    self.gridView.frame = CGRectMake(padding.left, padding.top, contentWidth, QMUIViewSelfSizingHeight);
+    self.avatarView.frame = CGRectMake(100, 100, 150, 150);
 }
 
 - (void)setupNavigationItems {
