@@ -82,7 +82,6 @@ const CGFloat kImageMarginSpace = 10;
             NSLog(@"W:%f-----H:%f",imageView.qmui_width,imageView.qmui_height);
         }];
     }
- 
 }
 
 - (NSAttributedString *)attributeStringWithString:(NSString *)textString lineHeight:(CGFloat)lineHeight {

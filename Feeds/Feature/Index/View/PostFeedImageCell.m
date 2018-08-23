@@ -14,7 +14,7 @@
 
 static NSString *const Identifier = @"CollectionCellIdentifier";
 
-@interface PhotoCell : UICollectionViewCell
+@interface CMPhotoCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIButton *addPhotoBtn;
 @property (nonatomic, strong) UIImageView *imageView;
@@ -22,7 +22,7 @@ static NSString *const Identifier = @"CollectionCellIdentifier";
 
 @end
 
-@implementation PhotoCell
+@implementation CMPhotoCell
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -106,7 +106,7 @@ static NSString *const Identifier = @"CollectionCellIdentifier";
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.scrollEnabled = NO;
-        [_collectionView registerClass:[PhotoCell class] forCellWithReuseIdentifier:Identifier];
+        [_collectionView registerClass:[CMPhotoCell class] forCellWithReuseIdentifier:Identifier];
     }
     return _collectionView;
 }
@@ -132,7 +132,7 @@ static NSString *const Identifier = @"CollectionCellIdentifier";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    PhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:Identifier forIndexPath:indexPath];
+    CMPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:Identifier forIndexPath:indexPath];
     if (indexPath.row == self.images.count) {
         if (self.images.count < 9) {
             cell.addPhotoBtn.hidden = NO;

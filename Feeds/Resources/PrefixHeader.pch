@@ -161,6 +161,7 @@
 #import <MJRefresh/MJRefresh.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <Masonry/Masonry.h>
+#import <IGListKit/IGListKit.h>
 
 #import "NSDate+Extension.h"
 #import "NSString+Common.h"

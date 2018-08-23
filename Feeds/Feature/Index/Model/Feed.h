@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Feed : NSObject
+@interface Feed : NSObject<IGListDiffable>
 
 @property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *uid;
@@ -17,5 +17,6 @@
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, copy) NSString *created;
 @property (nonatomic, copy) NSString *imageUrls;
+@property (nonatomic, strong) NSArray<NSString *> *comments;
 
 @end

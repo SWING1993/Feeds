@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "AppFeedsViewController.h"
 #import "CMMineViewController.h"
+#import "FeedsViewController.h"
 #import <AFNetworking/AFNetworking.h>
 
 @interface AppDelegate ()
@@ -37,8 +38,9 @@
 - (void)createTabBarController {
     CMBaseTabBarViewController *tabBarViewController = [[CMBaseTabBarViewController alloc] init];
     
+    /*
     // index
-    CMBaseNavigationController *feedNavController = ({
+    CMBaseNavigationController *oldFeedNavController = ({
         AppFeedsViewController *viewController = [[AppFeedsViewController alloc] init];
         viewController.hidesBottomBarWhenPushed = NO;
         CMBaseNavigationController *navController = [[CMBaseNavigationController alloc] initWithRootViewController:viewController];
@@ -47,6 +49,19 @@
         navController.tabBarItem = tabBarItem;
         navController;
     });
+     */
+    
+    // index
+    CMBaseNavigationController *feedNavController = ({
+        FeedsViewController *viewController = [[FeedsViewController alloc] init];
+        viewController.hidesBottomBarWhenPushed = NO;
+        CMBaseNavigationController *navController = [[CMBaseNavigationController alloc] initWithRootViewController:viewController];
+        UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Feeds" image:[UIImageMake(@"icon_tabbar_lab") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] tag:0];
+        tabBarItem.selectedImage = UIImageMake(@"icon_tabbar_lab_selected");
+        navController.tabBarItem = tabBarItem;
+        navController;
+    });
+    
     
     // mine
     CMBaseNavigationController *mineNavController = ({

@@ -9,9 +9,10 @@ target 'Feeds' do
     pod 'MJRefresh'
     pod 'MJExtension'
     pod 'TPKeyboardAvoiding'
-    #    pod 'SDCycleScrollView','~> 1.75'
+    pod 'SDCycleScrollView','~> 1.75'
     pod 'SDWebImage'
     pod 'Masonry'
     pod 'BlocksKit'
     pod 'TZImagePickerController'
+    pod 'IGListKit'
 end
