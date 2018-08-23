@@ -10,8 +10,8 @@
 
 @interface Feed : NSObject
 
-@property (nonatomic, assign) long id;
-@property (nonatomic, assign) long uid;
+@property (nonatomic, copy) NSString *id;
+@property (nonatomic, copy) NSString *uid;
 @property (nonatomic, copy) NSString *author;
 @property (nonatomic, copy) NSString *avatar;
 @property (nonatomic, copy) NSString *content;

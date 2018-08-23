@@ -203,9 +203,9 @@
 				89002AA221269D5A00CD0C8E /* NSString+Common.h */,
 				89002AA321269D5A00CD0C8E /* NSString+Common.m */,
 				89B22A6C211AC2A800F180CF /* NSDate+Extension.h */,
-				89B22A6D211AC2A800F180CF /* NSDate+Utilities.m */,
 				89B22A6E211AC2A800F180CF /* NSDate+Extension.m */,
 				89B22A6F211AC2A800F180CF /* NSDate+Utilities.h */,
+				89B22A6D211AC2A800F180CF /* NSDate+Utilities.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";

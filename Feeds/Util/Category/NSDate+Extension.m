@@ -379,26 +379,22 @@
         return [NSString stringWithFormat:@"%.0f小时前", floor(retTime)];
     } else if (time < 3600 * 24 * 2) {
         return @"昨天";
-    }
-    // 第一个条件是同年，且相隔时间在一个月内
-    // 第二个条件是隔年，对于隔年，只能是去年12月与今年1月这种情况
-    else if ((abs(year) == 0 && abs(month) <= 1)
+    } else if ((abs(year) == 0 && abs(month) <= 1)
              || (abs(year) == 1 && [curDate month] == 1 && [self month] == 12)) {
+        // 第一个条件是同年，且相隔时间在一个月内
+        // 第二个条件是隔年，对于隔年，只能是去年12月与今年1月这种情况
         int retDay = 0;
         if (year == 0) { // 同年
             if (month == 0) { // 同月
                 retDay = day;
             }
         }
-        
         if (retDay <= 0) {
             // 获取发布日期中，该月有多少天
             int totalDays = (int)[self daysInMonth];
-            
             // 当前天数 + （发布日期月中的总天数-发布日期月中发布日，即等于距离今天的天数）
             retDay = (int)[curDate day] + (totalDays - (int)[self day]);
         }
-        
         return [NSString stringWithFormat:@"%d天前", (abs)(retDay)];
     } else  {
         if (abs(year) <= 1) {
@@ -416,7 +412,6 @@
         }
         return [NSString stringWithFormat:@"%d年前", abs(year)];
     }
-    return @"1小时前";
 }
 
 - (NSString *)timeInfo {
@@ -424,11 +419,11 @@
 }
 
 + (NSString *)timeInfoWithDate:(NSDate *)date {
-    return [self timeInfoWithDateString:[self stringWithDate:date format:@"yyyy-MM-dd HH:mm:ss"]];
+    return [self timeInfoWithDateString:[self stringWithDate:date format:@"yyyy-MM-dd HH:mm"]];
 }
 
 + (NSString *)timeInfoWithDateString:(NSString *)dateString {
-    NSDate *date = [self dateWithString:dateString format:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *date = [self dateWithString:dateString format:@"yyyy-MM-dd HH:mm"];
     
     NSDate *curDate = [NSDate date];
     NSTimeInterval time = -[date timeIntervalSinceDate:curDate];
@@ -487,9 +482,7 @@
         }
         
         return [NSString stringWithFormat:@"%d年前", abs(year)];
-    }
-    
-    return @"1小时前";
+    }    
 }
 
 + (NSInteger)getDaysFrom:(NSDate *)serverDate To:(NSDate *)endDate {

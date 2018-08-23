@@ -9,7 +9,7 @@
 #import "FeedTableViewCell.h"
 
 static NSString * const kCellIdentifier = @"cell";
-const UIEdgeInsets kInsets = {15, 16, 15, 16};
+const UIEdgeInsets kInsets = {15, 15, 15, 15};
 const CGFloat kAvatarSize = 40;
 const CGFloat kAvatarMarginRight = 12;
 const CGFloat kAvatarMarginBottom = 6;
@@ -37,12 +37,20 @@ const CGFloat kImageMarginSpace = 10;
     _timeLabel = [[UILabel alloc] qmui_initWithFont:UIFontMake(11) textColor:UIColorGray];
     [self.contentView addSubview:self.timeLabel];
     
+    
+
+    
     self.gridView = [[QMUIGridView alloc] init];
     self.gridView.columnCount = 3;
     self.gridView.separatorWidth = kImageMarginSpace;
     self.gridView.separatorColor = [UIColor clearColor];
     self.gridView.separatorDashed = NO;
+    CGFloat contentLabelWidth = CGRectGetWidth(self.contentView.bounds) - UIEdgeInsetsGetHorizontalValue(kInsets);
+    self.gridView.rowHeight = (contentLabelWidth - (2*kImageMarginSpace))/3;
     [self.contentView addSubview:self.gridView];
+    
+    
+    
 }
 
 - (void)renderWithFeed:(Feed *)feed {
@@ -55,7 +63,6 @@ const CGFloat kImageMarginSpace = 10;
     NSArray *imageArr = [self imageUrlArrayWithStr:feed.imageUrls];
     self.imageNum = imageArr.count;
     
-    self.gridView.rowHeight = [self gridRowHeightWithNum:self.imageNum];
     [self.gridView.subviews bk_each:^(UIView *view) {
         [view removeFromSuperview];
     }];
@@ -63,6 +70,7 @@ const CGFloat kImageMarginSpace = 10;
     for (NSInteger i = 0; i < self.imageNum; i ++) {
         NSString *urlStr = imageArr[i];
         UIImageView *imageView = [[UIImageView alloc] init];
+        imageView.userInteractionEnabled = YES;
         imageView.tag = i + 1;
         [imageView sd_setImageWithURL:[NSURL URLWithString:urlStr]];
         imageView.backgroundColor = [UIColor colorWithRed:(arc4random()%256)/256.f
@@ -70,6 +78,10 @@ const CGFloat kImageMarginSpace = 10;
                                                 blue:(arc4random()%256)/256.f
                                                alpha:0.8f];
         [self.gridView addSubview:imageView];
+        
+        [imageView bk_whenTapped:^{
+            NSLog(@"W:%f-----H:%f",imageView.qmui_width,imageView.qmui_height);
+        }];
     }
  
 }
@@ -119,17 +131,6 @@ const CGFloat kImageMarginSpace = 10;
         CGSize timeSize = [self.timeLabel sizeThatFits:CGSizeMake(contentLabelWidth, CGFLOAT_MAX)];
         self.timeLabel.frame = CGRectFlatMake(CGRectGetMinX(self.contentLabel.frame), CGRectGetMaxY(self.gridView.frame) + kContentMarginBotom, contentLabelWidth, timeSize.height);
     }
-
-}
-
-- (CGFloat)gridRowHeightWithNum:(NSInteger)num {
-    if (num == 0) {
-        return CGFLOAT_MIN;
-    }
-    CGFloat contentLabelWidth = CGRectGetWidth(self.contentView.bounds) - UIEdgeInsetsGetHorizontalValue(kInsets);
-    NSInteger x = ceil(num/3.0);
-    CGFloat rowHeight = (contentLabelWidth - ((x-1)*kImageMarginSpace))/3;
-    return rowHeight;
 }
 
 - (CGFloat)gridViewHeightWithNum:(NSInteger)num {
@@ -137,7 +138,8 @@ const CGFloat kImageMarginSpace = 10;
         return CGFLOAT_MIN;
     }
     NSInteger x = ceil(num/3.0);
-    return [self gridRowHeightWithNum:num]*x+kImageMarginSpace*(x-1);
+    CGFloat height = (self.gridView.rowHeight * x + kImageMarginSpace * ( x - 1 ));
+    return height;
 }
 
 - (NSArray *)imageUrlArrayWithStr:(NSString *)str {

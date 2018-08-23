@@ -104,4 +104,37 @@ static NSString * const kCellIdentifier = @"cell";
     [self.tableView qmui_clearsSelection];
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewRowAction *deleteBtn = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        Feed *feed = self.dataSource[indexPath.section];
+        if (kStringIsEmpty(feed.id)) {
+            return ;
+        }
+        CMBaseRequest *request = [[CMBaseRequest alloc] initWithRequestUrl:@"/feed/delete" requestMethod:YTKRequestMethodDELETE requestArgument:@{@"id":feed.id}];
+        @weakify(self)
+        [request startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+            if ([request.responseObject[@"success"] boolValue]) {
+                @strongify(self)
+                [self.dataSource removeObjectAtIndex:indexPath.section];
+                [tableView reloadData];
+            } else {
+                [QMUITips showInfo:@"请求失败"];
+            }
+        } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+            [QMUITips showInfo:@"请求失败"];
+        }];
+    }];
+    deleteBtn.backgroundColor = UIColorTheme1;
+    return @[deleteBtn];
+}
+
+
 @end

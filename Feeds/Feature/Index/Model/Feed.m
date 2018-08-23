@@ -10,4 +10,11 @@
 
 @implementation Feed
 
+- (void)setCreated:(NSString *)created {
+    NSTimeInterval tempMilli = [created longLongValue];
+    NSTimeInterval seconds = tempMilli/1000.0;
+    NSDate *createdDate = [NSDate dateWithTimeIntervalSince1970:seconds];
+    _created = [createdDate timeDetail];
+}
+
 @end

@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) QMUIGridView *gridView;
 @property (nonatomic, assign) NSInteger imageNum;
+
 @property (nonatomic, strong) Feed *feed;
 
 - (void)renderWithFeed:(Feed *)feed;

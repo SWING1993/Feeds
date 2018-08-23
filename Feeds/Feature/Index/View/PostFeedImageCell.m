@@ -16,9 +16,9 @@ static NSString *const Identifier = @"CollectionCellIdentifier";
 
 @interface PhotoCell : UICollectionViewCell
 
-@property (nonatomic, strong)UIButton *addPhotoBtn;
-@property (nonatomic, strong)UIImageView *imageView;
-@property (nonatomic, strong)UIButton *deleteBtn;
+@property (nonatomic, strong) UIButton *addPhotoBtn;
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIButton *deleteBtn;
 
 @end
 
