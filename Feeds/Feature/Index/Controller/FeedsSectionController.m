@@ -36,19 +36,20 @@ static NSInteger cellsBeforeComments = 4;
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
     const CGFloat width = self.collectionContext.containerSize.width;
     CGFloat height;
-    if (index == 0 || index == 3) {
-        height = 41.0;
+    if (index == 0) {
+        height = 45.0;
     } else if (index == 1) {
         QMUILabel *label = [[QMUILabel alloc] init];
         label.numberOfLines = 0;
         label.font = UIFontMake(13);
         label.attributedText = [self attributeStringWithString:_feed.content lineHeight:20];
-        CGFloat left = 15.0;
-        CGRect bounds = self.viewController.view.bounds;
-        height = [label sizeThatFits:CGSizeMake(bounds.size.width - 2*left, CGFLOAT_MAX)].height + 15;
+        CGFloat left = 8.0;
+        height = [label sizeThatFits:CGSizeMake(self.collectionContext.containerSize.width - 2*left, CGFLOAT_MAX)].height + 15;
         label = nil;
     } else if (index == 2) {
-        height = width;
+        height = kStringIsEmpty(_feed.imageUrls) ? CGFLOAT_MIN : width;
+    } else if (index == 3) {
+        height = 30.0;
     } else {
         height = 25.0;
     }
@@ -60,15 +61,20 @@ static NSInteger cellsBeforeComments = 4;
         UserInfoCell *cell = [self.collectionContext dequeueReusableCellOfClass:[UserInfoCell class] forSectionController:self atIndex:index];
         [cell setAvatar:_feed.avatar];
         [cell setAuthor:_feed.author];
+        [cell setCreated:_feed.created];
         return cell;
     } else if (index == 1) {
         ContentCell *cell = [self.collectionContext dequeueReusableCellOfClass:[ContentCell class] forSectionController:self atIndex:index];
         [cell setContent:_feed.content];
         return cell;
     } else if (index == 2) {
-        PhotoCell *cell = [self.collectionContext dequeueReusableCellOfClass:[PhotoCell class] forSectionController:self atIndex:index];
-        [cell setImageUrls:_feed.imageUrls];
-        return cell;
+        if (kStringIsEmpty(_feed.imageUrls)) {
+            return [self.collectionContext dequeueReusableCellOfClass:[UICollectionViewCell class] forSectionController:self atIndex:index];
+        } else {
+            PhotoCell *cell = [self.collectionContext dequeueReusableCellOfClass:[PhotoCell class] forSectionController:self atIndex:index];
+            [cell setImageUrls:_feed.imageUrls];
+            return cell;
+        }
     } else if (index == 3) {
         InteractiveCell *cell = [self.collectionContext dequeueReusableCellOfClass:[InteractiveCell class] forSectionController:self atIndex:index];
         return cell;

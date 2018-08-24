@@ -17,7 +17,6 @@
 @interface InteractiveCell ()
 @property (nonatomic, strong) UIButton *likeButton;
 @property (nonatomic, strong) UIButton *commentButton;
-@property (nonatomic, strong) UIButton *shareButton;
 @property (nonatomic, strong) CALayer *separator;
 @end
 
@@ -38,29 +37,18 @@
 }
 
 - (void)setupSubviews {
-    UIColor *buttonTitleColor = [UIColor colorWithRed:28/255.0 green:30/255.0 blue:28/255.0 alpha:1.0];
-    UIFont *titleFont = [UIFont systemFontOfSize:12.0];
-    
     self.likeButton = [[UIButton alloc] init];
-    [self.likeButton setTitle:@"Like" forState:UIControlStateNormal];
-    [self.likeButton setTitleColor:buttonTitleColor forState:UIControlStateNormal];
-    [self.likeButton.titleLabel setFont:titleFont];
+    [self.likeButton setImage:UIImageMake(@"feed_like") forState:UIControlStateNormal];
+    [self.likeButton setImage:UIImageMake(@"feed_liked") forState:UIControlStateSelected];
     [self.likeButton sizeToFit];
+    [self.likeButton addTarget:self action:@selector(clickLikeAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.likeButton];
     
     self.commentButton = [[UIButton alloc] init];
-    [self.commentButton setTitle:@"Comment" forState:UIControlStateNormal];
-    [self.commentButton setTitleColor:buttonTitleColor forState:UIControlStateNormal];
-    [self.commentButton.titleLabel setFont:titleFont];
+    [self.commentButton setImage:UIImageMake(@"feed_comment") forState:UIControlStateNormal];
     [self.commentButton sizeToFit];
+    [self.commentButton addTarget:self action:@selector(clickCommentAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.commentButton];
-    
-    self.shareButton = [[UIButton alloc] init];
-    [self.shareButton setTitle:@"Share" forState:UIControlStateNormal];
-    [self.shareButton setTitleColor:buttonTitleColor forState:UIControlStateNormal];
-    [self.shareButton.titleLabel setFont:titleFont];
-    [self.shareButton sizeToFit];
-    [self.contentView addSubview:self.shareButton];
     
     self.separator = [[CALayer alloc] init];
     self.separator.backgroundColor = [UIColor colorWithRed:200/255.0 green:199/255.0 blue:204/255.0 alpha:1].CGColor;
@@ -71,15 +59,24 @@
     [super layoutSubviews];
     
     CGRect bounds = self.contentView.bounds;
+    CGFloat avatarViewWidth = 20;
     CGFloat leftPadding = 8.0;
-    self.likeButton.frame = CGRectMake(leftPadding, 0, CGRectGetWidth(self.likeButton.frame), bounds.size.height);
+    CGFloat avatarTopSpace = (CGRectGetHeight(bounds) - avatarViewWidth) / 2.0;
+
+    self.likeButton.frame = CGRectMake(leftPadding, avatarTopSpace, avatarViewWidth, avatarViewWidth);
     
-    self.commentButton.frame = CGRectMake(leftPadding + CGRectGetMaxX(self.likeButton.frame), 0, CGRectGetWidth(self.commentButton.frame), bounds.size.height);
-    
-    self.shareButton.frame = CGRectMake(leftPadding + CGRectGetMaxX(self.commentButton.frame), 0, CGRectGetWidth(self.shareButton.frame), bounds.size.height);
+    self.commentButton.frame = CGRectMake(leftPadding*2 + CGRectGetMaxX(self.likeButton.frame), avatarTopSpace, avatarViewWidth, avatarViewWidth);
     
     CGFloat height = 0.5;
     self.separator.frame = CGRectMake(leftPadding, bounds.size.height - height, bounds.size.width - leftPadding, height);
+}
+
+- (void)clickLikeAction:(UIButton *)sender {
+    sender.selected = !sender.selected;
+}
+
+- (void)clickCommentAction:(UIButton *)sender {
+    
 }
 
 @end

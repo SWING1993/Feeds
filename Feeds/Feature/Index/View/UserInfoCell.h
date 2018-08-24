@@ -18,5 +18,6 @@
 
 @property (nonatomic, copy) NSString *author;
 @property (nonatomic, copy) NSString *avatar;
+@property (nonatomic, copy) NSString *created;
 
 @end

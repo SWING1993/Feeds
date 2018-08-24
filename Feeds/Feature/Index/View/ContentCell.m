@@ -38,7 +38,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    CGFloat left = 15.0;
+    CGFloat left = 8.0;
     CGRect bounds = self.contentView.bounds;
     self.contentLabel.frame = CGRectMake(left, 0, bounds.size.width - left * 2.0, bounds.size.height);
 }

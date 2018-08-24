@@ -25,6 +25,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self setupRequest];
+}
+
+- (void)initSubviews {
+    [super initSubviews];
     self.view.backgroundColor = UIColorWhite;
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero
                                              collectionViewLayout:[UICollectionViewFlowLayout new]];
@@ -38,26 +44,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    CMBaseRequest *request = [[CMBaseRequest alloc] initWithRequestUrl:@"/feed/getAll" requestMethod:YTKRequestMethodGET requestArgument:nil];
-    @weakify(self)
-    [request startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
-        @strongify(self)
-        if ([request.responseObject[@"success"] boolValue]) {
-            NSArray *data = request.responseObject[@"result"];
-            NSArray *feeds = [[[data rac_sequence] map:^id _Nullable(NSString *json) {
-                Feed *feed = [Feed mj_objectWithKeyValues:json];
-                return feed;
-            }] array];
-            self.dataSource = [feeds copy];
-            [self.adapter reloadDataWithCompletion:^(BOOL finished) {
-                
-            }];
-        } else {
-            [QMUITips showInfo:@"请求失败"];
-        }
-    } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
-        [QMUITips showInfo:@"请求失败"];
-    }];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -71,7 +57,11 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] bk_initWithImage:UIImageMake(@"feeds_post") style:UIBarButtonItemStyleDone handler:^(id sender) {
         @strongify(self)
         CMBaseNavigationController *postNav = [[CMBaseNavigationController alloc] initWithRootViewController:[[PostFeedViewController alloc] init]];
-        [self presentViewController:postNav animated:YES completion:NULL];
+        @weakify(self)
+        [self presentViewController:postNav animated:YES completion:^{
+            @strongify(self)
+            [self setupRequest];
+        }];
     }];;
 }
 
@@ -87,6 +77,30 @@
 
 - (UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {
     return nil;
+}
+
+- (void)setupRequest {
+    CMBaseRequest *request = [[CMBaseRequest alloc] initWithRequestUrl:@"/feed/getAll" requestMethod:YTKRequestMethodGET requestArgument:nil];
+    @weakify(self)
+    [request startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+        @strongify(self)
+        if ([request.responseObject[@"success"] boolValue]) {
+            NSArray *data = request.responseObject[@"result"];
+            NSArray *feeds = [[[data rac_sequence] map:^id _Nullable(NSString *json) {
+                Feed *feed = [Feed mj_objectWithKeyValues:json];
+                return feed;
+            }] array];
+            self.dataSource = [feeds copy];
+            [self.adapter reloadDataWithCompletion:^(BOOL finished) {
+                
+            }];
+            [self.collectionView reloadData];
+        } else {
+            [QMUITips showInfo:@"请求失败"];
+        }
+    } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+        [QMUITips showInfo:@"请求失败"];
+    }];
 }
 
 @end
