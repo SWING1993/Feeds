@@ -76,7 +76,9 @@
 }
 
 - (void)clickCommentAction:(UIButton *)sender {
-    
+    if (self.clickMenuBlock) {
+        self.clickMenuBlock();
+    }
 }
 
 @end

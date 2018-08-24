@@ -16,4 +16,6 @@
 
 @interface InteractiveCell : UICollectionViewCell
 
+@property (nonatomic, copy) void(^clickMenuBlock)(void);
+
 @end

@@ -62,6 +62,35 @@ static NSInteger cellsBeforeComments = 4;
         [cell setAvatar:_feed.avatar];
         [cell setAuthor:_feed.author];
         [cell setCreated:_feed.created];
+        
+        
+        Feed *feed = _feed;
+        cell.clickMenuBlock = ^(void){
+            QMUIAlertAction *action1 = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:^(QMUIAlertController *aAlertController, QMUIAlertAction *action) {
+            }];
+            QMUIAlertAction *action2 = [QMUIAlertAction actionWithTitle:@"删除" style:QMUIAlertActionStyleDestructive handler:^(QMUIAlertController *aAlertController, QMUIAlertAction *action) {
+                
+                CMBaseRequest *request = [[CMBaseRequest alloc] initWithRequestUrl:@"/feed/delete" requestMethod:YTKRequestMethodDELETE requestArgument:@{@"id":feed.id}];
+                @weakify(self)
+                [request startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+                    if ([request.responseObject[@"success"] boolValue]) {
+                        @strongify(self)
+                        if (self.deleteFeedBlock) {
+                            self.deleteFeedBlock(feed);
+                        }
+                    } else {
+                        [QMUITips showInfo:@"请求失败"];
+                    }
+                } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+                    [QMUITips showInfo:@"请求失败"];
+                }];
+            }];
+
+            QMUIAlertController *alertController = [QMUIAlertController alertControllerWithTitle:@"确定删除？" message:@"删除后将无法恢复，请慎重考虑" preferredStyle:QMUIAlertControllerStyleActionSheet];
+            [alertController addAction:action1];
+            [alertController addAction:action2];
+            [alertController showWithAnimated:YES];
+        };
         return cell;
     } else if (index == 1) {
         ContentCell *cell = [self.collectionContext dequeueReusableCellOfClass:[ContentCell class] forSectionController:self atIndex:index];

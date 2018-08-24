@@ -110,7 +110,9 @@
 }
 
 - (void)clickMenuAction:(UIButton *)sender {
-    
+    if (self.clickMenuBlock) {
+        self.clickMenuBlock();
+    }
 }
 
 @end

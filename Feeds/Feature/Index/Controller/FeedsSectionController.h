@@ -13,7 +13,10 @@
  */
 
 #import <IGListKit/IGListKit.h>
+#import "Feed.h"
 
 @interface FeedsSectionController : IGListSectionController
+
+@property (nonatomic, copy) void(^deleteFeedBlock)(Feed *);
 
 @end

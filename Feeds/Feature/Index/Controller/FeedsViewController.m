@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) IGListAdapter *adapter;
-@property (nonatomic, strong) NSArray<Feed *> *dataSource;
+@property (nonatomic, strong) NSMutableArray<Feed *> *dataSource;
 
 @end
 
@@ -72,7 +72,14 @@
 }
 
 - (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
-    return [FeedsSectionController new];
+    FeedsSectionController *feedsSectionController =  [[FeedsSectionController alloc] init];
+    feedsSectionController.deleteFeedBlock = ^(Feed *feed) {
+        [self.dataSource removeObject:feed];
+        [self.adapter reloadDataWithCompletion:^(BOOL finished) {
+            
+        }];
+    };
+    return feedsSectionController;
 }
 
 - (UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {
@@ -90,11 +97,11 @@
                 Feed *feed = [Feed mj_objectWithKeyValues:json];
                 return feed;
             }] array];
-            self.dataSource = [feeds copy];
+            self.dataSource = [NSMutableArray arrayWithCapacity:feeds.count];
+            self.dataSource = [feeds mutableCopy];
             [self.adapter reloadDataWithCompletion:^(BOOL finished) {
                 
             }];
-            [self.collectionView reloadData];
         } else {
             [QMUITips showInfo:@"请求失败"];
         }
