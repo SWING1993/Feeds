@@ -627,4 +627,16 @@
     return dateString;
 }
 
+- (NSString *)formatOssStringWithOriginal {
+    return [NSString stringWithFormat:@"%@%@",kImageHost,self];
+}
+
+- (NSString *)formatOssStringWithResizeWidth:(CGFloat)width {
+    return [NSString stringWithFormat:@"%@%@?x-oss-process=image/resize,w_%0.0f",kImageHost,self,width];
+}
+
+- (NSURL *)formatOssUrlWithResizeWidth:(CGFloat)width {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?x-oss-process=image/resize,w_%0.0f",kImageHost,self,width]];
+}
+
 @end

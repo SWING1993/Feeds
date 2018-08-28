@@ -29,8 +29,9 @@
         @strongify(self)
         if ([request.responseObject[@"success"] boolValue]) {
             NSDictionary *result = request.responseObject[@"result"];
-            if (!kStringIsEmpty(result[@"avatar"])) {
-                [self.avatarView sd_setImageWithURL:[NSURL URLWithString:result[@"avatar"]]];
+            NSString *avatar = result[@"avatar"];
+            if (!kStringIsEmpty(avatar)) {
+                [self.avatarView sd_setImageWithURL:[avatar formatOssUrlWithResizeWidth:150]];
             }
         } else {
             [QMUITips showInfo:@"请求失败"];

@@ -99,4 +99,10 @@
 - (NSMutableAttributedString *)numberWithString:(NSString *)str;
 /** 时间戳转化时间 */
 + (NSString *)timeWithTimeIntervalString:(NSString *)timeString;
+
+-(NSString *)formatOssStringWithOriginal;
+
+- (NSString *)formatOssStringWithResizeWidth:(CGFloat)width;
+
+- (NSURL *)formatOssUrlWithResizeWidth:(CGFloat)width;
 @end

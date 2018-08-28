@@ -51,7 +51,7 @@
 
 - (void)setImageUrls:(NSString *)imageUrls {
     NSArray *urlStrs = [[imageUrls componentsSeparatedByString:@","] bk_map:^id(NSString *url) {
-        return [NSString stringWithFormat:@"%@%@",kImageHost,url];
+        return [url formatOssStringWithOriginal];
     }];
     self.scrollView.imageURLStringsGroup = urlStrs;
 }

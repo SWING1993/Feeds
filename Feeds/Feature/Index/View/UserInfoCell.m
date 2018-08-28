@@ -101,7 +101,7 @@
 - (void)setAvatar:(NSString *)avatar {
     _avatar = [avatar copy];
     if (!kStringIsEmpty(_avatar)) {
-        [self.avatarView sd_setImageWithURL:[NSURL URLWithString:_avatar]];
+        [self.avatarView sd_setImageWithURL:[_avatar formatOssUrlWithResizeWidth:CGRectGetWidth(self.avatarView.frame)]];
     }
 }
 
