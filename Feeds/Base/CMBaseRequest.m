@@ -23,7 +23,11 @@
 - (id)initWithRequestUrl:(NSString *)requestUrl requestMethod:(YTKRequestMethod)requestMethod requestArgument:(id)requestArgument {
     self = [super init];
     if (self) {
-        self.cmRequestUrl = requestUrl;
+        if ([kBaseUrl hasPrefix:@"http://swing1993"]) {
+            self.cmRequestUrl = [NSString stringWithFormat:@"/cuckoo%@",requestUrl];
+        } else {
+            self.cmRequestUrl = requestUrl;
+        }
         self.cmRequestMethod = requestMethod;
         self.cmRequestArgument = requestArgument;
     }

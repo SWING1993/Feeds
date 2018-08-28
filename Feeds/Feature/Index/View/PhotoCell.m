@@ -40,6 +40,7 @@
     self.scrollView.infiniteLoop = NO;
     self.scrollView.autoScroll = NO;
     self.scrollView.pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
+    self.scrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
     [self.contentView addSubview:self.scrollView];
 }
 
@@ -49,8 +50,8 @@
 }
 
 - (void)setImageUrls:(NSString *)imageUrls {
-    NSArray *urlStrs = [[imageUrls componentsSeparatedByString:@","] bk_select:^BOOL(NSString *url) {
-        return [url hasPrefix:@"http"];
+    NSArray *urlStrs = [[imageUrls componentsSeparatedByString:@","] bk_map:^id(NSString *url) {
+        return [NSString stringWithFormat:@"%@%@",kImageHost,url];
     }];
     self.scrollView.imageURLStringsGroup = urlStrs;
 }

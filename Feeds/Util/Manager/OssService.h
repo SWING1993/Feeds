@@ -20,9 +20,14 @@ extern NSString* const AccessKeySecret;
 
 - (id)init;
 
-- (void)asyncPutImage:(UIImage *)image
+- (void)putImage:(UIImage *)image
+          compression:(BOOL)compression
               success:(SuccessBlock)succeesBlock
                failed:(FailedBlock)failedBlock;
+
+- (void)deleteImage:(NSString *)imageUrl
+            success:(SuccessBlock)succeesBlock
+             failed:(FailedBlock)failedBlock;
 
 - (void)normalRequestCancel;
 

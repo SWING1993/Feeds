@@ -40,6 +40,8 @@
                                            viewController:self];
     self.adapter.collectionView = self.collectionView;
     self.adapter.dataSource = self;
+    
+    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(setupRequest)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -91,6 +93,7 @@
     @weakify(self)
     [request startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         @strongify(self)
+        [self.collectionView.mj_header endRefreshing];
         if ([request.responseObject[@"success"] boolValue]) {
             NSArray *data = request.responseObject[@"result"];
             NSArray *feeds = [[[data rac_sequence] map:^id _Nullable(NSString *json) {
@@ -107,6 +110,7 @@
         }
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
         [QMUITips showInfo:@"请求失败"];
+        [self.collectionView.mj_header endRefreshing];
     }];
 }
 

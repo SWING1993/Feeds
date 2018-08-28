@@ -41,6 +41,7 @@
 
 - (void)setupSubviews {
     self.avatarView = [[UIImageView alloc] init];
+    self.avatarView.contentMode = UIViewContentModeScaleAspectFill;
     self.avatarView.backgroundColor = [UIColor colorWithRed:210/255.0 green:65/255.0 blue:64/255.0 alpha:1.0];
     [self.contentView addSubview:self.avatarView];
     

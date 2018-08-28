@@ -57,18 +57,27 @@ NSString * const AccessKeySecret = @"vFp8Zxg0apNnNByoeswRfbS4WzjJ9q";
  *
  *    @param     image         图片
  */
-- (void)asyncPutImage:(UIImage *)image
+- (void)putImage:(UIImage *)image
+          compression:(BOOL)compression
               success:(SuccessBlock)succeesBlock
                failed:(FailedBlock)failedBlock {
     if (image == nil) {
         return;
     }
-    NSString *objectKey = [NSString stringWithFormat:@"%@.jpg",[OssService getFileName]];
     
     putRequest = [OSSPutObjectRequest new];
     putRequest.bucketName = BUCKET_NAME;
+    NSString *objectKey;
+    NSData *objectData;
+    if (compression) {
+        objectKey = [NSString stringWithFormat:@"%@.jpg",[OssService getFileName]];
+        objectData = UIImageJPEGRepresentation(image, 0.5);
+    } else {
+        objectKey = [NSString stringWithFormat:@"%@.png",[OssService getFileName]];
+        objectData = UIImagePNGRepresentation(image);
+    }
     putRequest.objectKey = objectKey;
-    putRequest.uploadingData = UIImageJPEGRepresentation(image, 0.1);
+    putRequest.uploadingData = objectData;
     putRequest.uploadProgress = ^(int64_t bytesSent, int64_t totalByteSent, int64_t totalBytesExpectedToSend) {
         NSLog(@"%lld, %lld, %lld", bytesSent, totalByteSent, totalBytesExpectedToSend);
     };
@@ -77,10 +86,26 @@ NSString * const AccessKeySecret = @"vFp8Zxg0apNnNByoeswRfbS4WzjJ9q";
         // 查看server callback是否成功
         if (!task.error) {
             NSLog(@"Put image success!");
-            NSString *result = [NSString stringWithFormat:@"https://mybucket-swing.oss-cn-beijing.aliyuncs.com/%@",objectKey];
-            succeesBlock(result);
+            succeesBlock(objectKey);
         } else {
             NSLog(@"Put image failed, %@", task.error);
+            failedBlock(task.error);
+        }
+        self->putRequest = nil;
+        return nil;
+    }];
+}
+
+- (void)deleteImage:(NSString *)key success:(SuccessBlock)succeesBlock failed:(FailedBlock)failedBlock {
+    OSSDeleteObjectRequest * delete = [OSSDeleteObjectRequest new];
+    delete.bucketName = BUCKET_NAME;
+    delete.objectKey = key;
+    OSSTask * deleteTask = [client deleteObject:delete];
+    [deleteTask continueWithBlock:^id(OSSTask *task) {
+        if (!task.error) {
+            succeesBlock(@"删除成功!");
+        } else {
+            NSLog(@"删除图片失败, %@", task.error);
             failedBlock(task.error);
         }
         self->putRequest = nil;

@@ -66,7 +66,7 @@
             @strongify(self)
             UIImage *aImage = info[UIImagePickerControllerOriginalImage];
             OssService *service = [[OssService alloc] init];
-            [service asyncPutImage:aImage success:^(NSString *result) {
+            [service putImage:aImage compression:YES success:^(NSString *result) {
                 kDISPATCH_MAIN_THREAD(^{
                     self.avatarView.image = aImage;
                 })
@@ -81,17 +81,13 @@
                 } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
                     [QMUITips showInfo:@"请求失败"];
                 }];
-                
             } failed:^(NSError *error) {
                 kDISPATCH_MAIN_THREAD(^{
                     [QMUITips showSucceed:@"上传失败"];
                 })
             }];
         };
-        
     }];
-    
-    
 }
 
 - (void)viewDidLayoutSubviews {

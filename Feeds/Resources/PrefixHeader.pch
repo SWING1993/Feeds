@@ -12,17 +12,21 @@
 // NSLog
 #define NSLog(format, ...) printf("TIME:%s FILE:%s(%d行) FUNCTION:%s \n %s\n\n",__TIME__, [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, __PRETTY_FUNCTION__, [[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String])
 //app域名
-#define kBaseUrl             @"http://localhost:8080"
+//#define kBaseUrl             @"http://localhost:8080"
+#define kBaseUrl             @"http://swing1993.top:8080"
+
 #define kShouldPrint         YES
 
 #else
 // NSLog
 #define NSLog(...)
 //app域名
-#define kBaseUrl             @"http://www.swing1993.cn:8080"
+#define kBaseUrl             @"http://swing1993.top:8080"
 #define kShouldPrint         NO
 
 #endif
+
+#define kImageHost           @"https://mybucket-swing.oss-cn-beijing.aliyuncs.com/"
 
 //设置 view 圆角和边框
 #define HKViewBorderRadius(View, Radius, Width, Color)\

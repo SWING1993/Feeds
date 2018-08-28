@@ -63,7 +63,6 @@ static NSInteger cellsBeforeComments = 4;
         [cell setAuthor:_feed.author];
         [cell setCreated:_feed.created];
         
-        
         Feed *feed = _feed;
         cell.clickMenuBlock = ^(void){
             QMUIAlertAction *action1 = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:^(QMUIAlertController *aAlertController, QMUIAlertAction *action) {
@@ -78,6 +77,16 @@ static NSInteger cellsBeforeComments = 4;
                         if (self.deleteFeedBlock) {
                             self.deleteFeedBlock(feed);
                         }
+                        [[[feed.imageUrls componentsSeparatedByString:@","] bk_select:^BOOL(NSString *url) {
+                            return [url hasPrefix:@"http"];
+                        }] bk_each:^(NSString *url) {
+                            OssService *service = [[OssService alloc] init];
+                            [service deleteImage:url success:^(NSString *result) {
+                                NSLog(@"%@",result);
+                            } failed:^(NSError *error) {
+                                NSLog(@"删除失败");
+                            }];
+                        }];
                     } else {
                         [QMUITips showInfo:@"请求失败"];
                     }

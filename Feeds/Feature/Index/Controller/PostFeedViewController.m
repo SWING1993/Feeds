@@ -18,6 +18,7 @@
 @property (nonatomic, strong) TPKeyboardAvoidingTableView *tableView;
 @property (nonatomic, copy) NSString *feedContent;
 @property (nonatomic, copy) NSArray <UIImage *> *feedImages;
+@property (nonatomic, assign) BOOL compression;
 
 @end
 
@@ -63,14 +64,14 @@
         for (UIImage *image in self.feedImages) {
             OssService *service = [[OssService alloc] init];
             @weakify(self)
-            [service asyncPutImage:image success:^(NSString *result) {
+            [service putImage:image compression:self.compression success:^(NSString *result) {
                 [imageUrls addObject:result];
                 if (imageUrls.count == self.feedImages.count) {
                     @strongify(self)
                     [self postActionWithContent:self.feedContent imageUrls:imageUrls];
                 }
             } failed:^(NSError *error) {
-                
+                [service normalRequestCancel];
             }];
         }
     } else {
@@ -106,7 +107,7 @@
 #pragma mark - Table view
 - (TPKeyboardAvoidingTableView *)tableView {
     if (_tableView == nil) {
-        _tableView = [[TPKeyboardAvoidingTableView alloc]initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
+        _tableView = [[TPKeyboardAvoidingTableView alloc] initWithFrame:kScreenBounds style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.showsVerticalScrollIndicator = NO;
@@ -182,6 +183,7 @@
     @weakify(self)
     [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
         @strongify(self)
+        self.compression = !isSelectOriginalPhoto;
         self.feedImages = photos;
         [self.tableView reloadData];
     }];
