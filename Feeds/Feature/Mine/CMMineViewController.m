@@ -45,7 +45,6 @@
     [super initSubviews];
     [self setTitle:@"我的"];
    
-    
     self.avatarView = [[UIImageView alloc] init];
     self.avatarView.backgroundColor = UIColorTheme2;
     self.avatarView.userInteractionEnabled = YES;

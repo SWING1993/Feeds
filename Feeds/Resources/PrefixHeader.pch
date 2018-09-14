@@ -90,8 +90,8 @@
 #define kDeviceId [HKTools getDeviceIDInKeychain]
 #define kVersion [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]
 #define kVersionBuild [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
-#define KIdentifier [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"]
-
+#define kIdentifier [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"]
+#define kAppCurName [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"]
 #ifndef ios11x
 
 #endif
@@ -166,7 +166,6 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <Masonry/Masonry.h>
 #import <IGListKit/IGListKit.h>
-
 #import "NSDate+Extension.h"
 #import "NSString+Common.h"
 

@@ -11,8 +11,8 @@
 
 NSString * const BUCKET_NAME = @"mybucket-swing";
 NSString * const endPoint = @"https://oss-cn-beijing.aliyuncs.com";
-NSString * const AccessKeyId = @"LTAIn5TU8CkkVdIp";
-NSString * const AccessKeySecret = @"vFp8Zxg0apNnNByoeswRfbS4WzjJ9q";
+NSString * const AccessKeyId = @"LTAIPLIion21luIh";
+NSString * const AccessKeySecret = @"1ouJ2PyLsjTECLQnbBaWP8YEomSXnx";
 
 @interface OssService () {
     OSSClient * client;
@@ -126,7 +126,7 @@ NSString * const AccessKeySecret = @"vFp8Zxg0apNnNByoeswRfbS4WzjJ9q";
 + (NSString *)getFileName {
     NSString *newUuidStr = [[[NSString generateUuidString] stringByReplacingOccurrencesOfString:@"-" withString:@""] lowercaseString];
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitYear| NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[NSDate date]];
-    return [NSString stringWithFormat:@"ios/%@/%@/%@/%@",@(components.year),@(components.month),@(components.day),newUuidStr];
+    return [NSString stringWithFormat:@"%@/%@-%@-%@-%@",kAppCurName,@(components.year),@(components.month),@(components.day),newUuidStr];
 }
 
 

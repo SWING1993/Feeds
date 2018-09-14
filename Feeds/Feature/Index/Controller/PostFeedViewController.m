@@ -59,6 +59,7 @@
     if (kStringIsEmpty(self.feedContent)) {
         return;
     }
+    [QMUITips showLoading:@"发送中..." inView:self.view];
     if (self.feedImages.count > 0) {
         NSMutableArray *imageUrls = [NSMutableArray arrayWithCapacity:self.feedImages.count];
         for (UIImage *image in self.feedImages) {
@@ -72,6 +73,7 @@
                 }
             } failed:^(NSError *error) {
                 [service normalRequestCancel];
+                [QMUITips showError:@"上传图片失败"];
             }];
         }
     } else {
@@ -96,6 +98,7 @@
         @strongify(self)
         if ([request.responseObject[@"success"] boolValue]) {
             [self dismissViewControllerAnimated:YES completion:NULL];
+            [QMUITips showSucceed:@"发送成功"];
         } else {
             [QMUITips showInfo:@"请求失败"];
         }
