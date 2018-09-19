@@ -9,10 +9,10 @@
 #import "OssService.h"
 #import <AliyunOSSiOS/OSSService.h>
 
-NSString * const BUCKET_NAME = @"mybucket-swing";
-NSString * const endPoint = @"https://oss-cn-beijing.aliyuncs.com";
-NSString * const AccessKeyId = @"LTAIPLIion21luIh";
-NSString * const AccessKeySecret = @"1ouJ2PyLsjTECLQnbBaWP8YEomSXnx";
+NSString * const BUCKET_NAME = @"";
+NSString * const endPoint = @"";
+NSString * const AccessKeyId = @"";
+NSString * const AccessKeySecret = @"";
 
 @interface OssService () {
     OSSClient * client;
